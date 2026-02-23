@@ -1,0 +1,4 @@
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/elias/Documents/2_Semester/DHDV/Projekt/DHDV_Project/code/src/CRC_Generator.sv" into library work
+INFO: [VRFC 10-311] analyzing module CRC32
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/elias/Documents/2_Semester/DHDV/Projekt/DHDV_Project/code/src/CRC_Generator_tb.sv" into library work
+INFO: [VRFC 10-311] analyzing module CRC32_tb

@@ -1,0 +1,56 @@
+$date
+   Mon Feb 23 21:06:01 2026
+$end
+
+$version
+  2024.2.0
+  $dumpfile ("CRC_Generator.vcd") 
+$end
+
+$timescale
+  1ps
+$end
+
+$scope module CRC32_tb $end
+$var reg 1 ! clk $end
+$var reg 1 " reset $end
+$var reg 8 # data [7:0] $end
+$var reg 1 $ enable $end
+$var reg 32 % crc [31:0] $end
+$scope module dut $end
+$var wire 1 & clk $end
+$var wire 1 ' reset $end
+$var wire 8 ( data_in [7:0] $end
+$var wire 1 ) valid $end
+$var wire 32 * crc_out [31:0] $end
+$var reg 32 + crc [31:0] $end
+$var reg 32 , crc_prev [31:0] $end
+$var reg 32 - crc_next [31:0] $end
+$scope begin Block34_2 $end
+$var reg 32 . i [31:0] $end
+$scope begin Block36_3 $end
+$var reg 32 / j [31:0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+
+#0
+$dumpvars
+x!
+x"
+b10010110 #
+1$
+bx %
+x&
+x'
+b10010110 (
+1)
+bx *
+bx +
+bx ,
+bx -
+b1000 .
+b11111 /
+$end

@@ -29,6 +29,8 @@ module Ethernet_frame_gen (
     logic [2:0] cnt_MAC_dest;
     logic [2:0] cnt_MAC_source;
     logic [10:0] cnt_payload;      //max 1500 Bytes Payload
+    logic [5:0] cnt_pad;
+
     logic [10:0] MAX_payload;       //max value of payload (= payload_lentgh)
 
     always_ff @(posedge clock) begin
@@ -114,11 +116,19 @@ module Ethernet_frame_gen (
                 end
             end
 
-            PAD begin               //Minimum Größe von 64 bytes sicherstellen
-                if (MAX_payload < 11'd6) begin
-                    //Padding
+            PAD begin               //Minimum frame Größe von 64 bytes sicherstellen
+                if ((14 + MAX_payload + cnt_pad) < 11'd6) begin
                     tx_data <= 8'h00;
+                    cnt_pad++;
                 end
+                else begin
+                    cnt_pad <= 6'b0;
+                    next_state <= FCS;
+                end
+            end
+
+            FCS begin
+                
                 
 
 
