@@ -3,8 +3,8 @@
 # SW Build 5239630 on Fri Nov 08 22:34:34 MST 2024
 # IP Build 5239520 on Sun Nov 10 16:12:51 MST 2024
 # SharedData Build 5239561 on Fri Nov 08 14:39:27 MST 2024
-# Start of session at: Mon Feb 23 21:26:06 2026
-# Process ID         : 160916
+# Start of session at: Tue Feb 24 11:48:24 2026
+# Process ID         : 184833
 # Current directory  : /home/elias/Documents/2_Semester/DHDV/Projekt/DHDV_Project/code/sim
 # Command line       : xsim -mode tcl -source {xsim.dir/CRC32_tb_snapshot/xsim_script.tcl}
 # Log file           : /home/elias/Documents/2_Semester/DHDV/Projekt/DHDV_Project/code/sim/xsim.log
@@ -13,13 +13,19 @@
 # Platform           : Ubuntu
 # Operating System   : Ubuntu 24.04.3 LTS
 # Processor Detail   : AMD Ryzen 7 7735HS with Radeon Graphics
-# CPU Frequency      : 4591.280 MHz
+# CPU Frequency      : 4589.765 MHz
 # CPU Physical cores : 8
 # CPU Logical cores  : 16
 # Host memory        : 32340 MB
 # Swap memory        : 8589 MB
 # Total Virtual      : 40930 MB
-# Available Virtual  : 34996 MB
+# Available Virtual  : 35098 MB
 #-----------------------------------------------------------
 source xsim.dir/CRC32_tb_snapshot/xsim_script.tcl
+# xsim {CRC32_tb_snapshot} -autoloadwcfg -runall
+Time resolution is 1 ps
 run -all
+crc_out = 0x466a5b7a 
+$stop called at time : 285 ns : File "/home/elias/Documents/2_Semester/DHDV/Projekt/DHDV_Project/code/src/CRC_Generator_tb.sv" Line 155
+exit
+INFO: [Common 17-206] Exiting xsim at Tue Feb 24 11:48:26 2026...
