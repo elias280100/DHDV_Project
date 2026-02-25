@@ -1,5 +1,5 @@
 $date
-   Tue Feb 24 11:57:42 2026
+   Tue Feb 24 14:13:22 2026
 $end
 
 $version
@@ -56,7 +56,7 @@ bx *
 bx +
 bx ,
 bx -
-b1 .
+bx .
 b1000 /
 b100000 0
 $end

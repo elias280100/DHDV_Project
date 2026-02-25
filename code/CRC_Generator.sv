@@ -1,3 +1,4 @@
+`timescale 1ns/1ps
 module CRC32 (
     input clk,
     input reset,
@@ -10,13 +11,17 @@ module CRC32 (
     logic [31:0] crc;
     logic [31:0] crc_prev;
     logic [31:0] crc_next;
+    logic [3:0] debug;
 
-    parameter bit [31:0] POLY = 32'h104C11DB7;     //Ethernet 32 Polynomial
-    parameter bit [31:0] final_crc = 31'ffff;
+    parameter bit [31:0] POLY = 32'h04C11DB7;     //Ethernet 32 Polynomial
+    //parameter bit [31:0] POLY = 32'hEDB88320;     //Ethernet 32 Polynomial reflected
+    parameter bit [31:0] final_crc = 32'h00000000;
+    
 
     always_ff @(posedge clk) begin
         if (reset) begin
-            crc <= 32'h00;
+            crc <= 32'hffffffff;
+            
         end
         else begin
             if (valid) begin
@@ -25,24 +30,28 @@ module CRC32 (
         end
     end
 
-    assign crc_out <= crc ^ final_crc;
+
+    assign crc_out = crc ^ final_crc;
 
     generate;
         always_comb begin
             crc_next = crc;
             crc_prev = crc;
+            debug = 4'b0001;
             for (int i = 0; i < 8; i++) begin
                 crc_next[0] = crc_prev[31] ^ data_in[7 - i];
-                for (int j = 0; j < 31; j++) begin
+                for (int j = 1; j < 32; j++) begin
                     if (POLY[j] == 1) begin
-                    crc_next[j] = crc_prev[j - 1] ^ crc_prev[31] ^ data_in[7 - 1];
+                    crc_next[j] = crc_prev[j - 1] ^ crc_prev[31] ^ data_in[7 - i];
                     end 
                     else begin
                         crc_next[j] = crc_prev[j - 1];
                     end
                 end
                 crc_prev = crc_next;
+                //debug = 4'b0000;
             end
+            
         end
     endgenerate
 

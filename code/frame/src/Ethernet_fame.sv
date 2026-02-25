@@ -59,12 +59,13 @@ module Ethernet_frame_gen (
             IDLE: begin
                 tx_data <= 8'd0;
                 frame_done <= 1'b0;
-                if (start == 1'b0) begin
+                if (start == 1'b1) begin
                     next_state <= PREAMBLE;
                 end
             end
 
             PREAMBLE: begin 
+                start <= 1'b0;      //hier zurücksetzen?
                 tx_data <= 8'h55;               //alternating pattern of binary 56 ones and zeroes
                 cnt_preamble++;
                 if (cnt_preamble == 3'b110) begin
@@ -157,11 +158,13 @@ module Ethernet_frame_gen (
                 next_state <= PAYLOAD;
             end
 
-            PAYLOAD: begin
-                tx_data <= payload[(MAX_payload - cnt_payload*8) : ((MAX_payload - cnt_payload*8) -7)];
+            PAYLOAD: begin      //stimmt die Reihenfolge der bytes hier? ich schicke MSB zuerst, passt das?
+                //tx_data <= payload(MAX_payload - cnt_payload);  //MSB first
+                tx_data <= payload(cnt_payload);          //LSB first
                 CRC32_valid <= 1'b1;
-                CRC32_data <= payload[(MAX_payload - cnt_payload*8) : ((MAX_payload - cnt_payload*8) -7)];
-                if (cnt_payload == 11'h5DB) begin           //counter = 1499
+                //CRC32_data <= payload(MAX_payload - cnt_payload);   //MSB first
+                CRC32_data <= payload(cnt_payload);         //LSB first
+                if (cnt_payload == MAX_payload) begin           
                     cnt_payload <= 11'b0;
                     CRC32_valid <= 1'b0;
                     next_state <= PAD;
@@ -183,7 +186,7 @@ module Ethernet_frame_gen (
             end
 
             FCS: begin
-                tx_data <= CRC32_crc[(31 - cnt_fcs*7) : ((31 - cnt_fcs*8) -7)];
+                tx_data <= CRC32_crc[(31 - cnt_fcs*8) : ((31 - cnt_fcs*8) -7)];
                 if (cnt_fcs == 2'11) begin
                     cnt_fcs <= 2'b00;
                     next_state <= IPG;

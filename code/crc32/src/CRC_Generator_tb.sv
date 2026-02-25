@@ -8,7 +8,7 @@ parameter [31:0] POLY       = 32'h04C11DB7;
 parameter        CRC_SIZE   = 32;
 parameter        DATA_WIDTH = 8;
 
-//parameter [63:0] INIT       = 32'hffff;
+parameter [31:0] init       = 32'hffffffff;
 //parameter        REF_IN     = 1;
 //parameter        REF_OUT    = 1;
 parameter [31:0] XOR_OUT    = 32'h00000000;
@@ -46,7 +46,7 @@ CRC32 #(
   .POLY         ( POLY       ),
   //.CRC_SIZE     ( CRC_SIZE   ),
   //.DATA_WIDTH   ( DATA_WIDTH ),
-  //.INIT         ( INIT       ),
+  .init         ( init       ),
   //.REF_IN       ( REF_IN     ),
   //.REF_OUT      ( REF_OUT    ),
   .final_crc      ( XOR_OUT    )
@@ -97,73 +97,14 @@ initial
     data <= 8'h00;
     repeat( 10 )
       @( posedge clk );
+      $display("crc_out = 0x%8h (erwartet: 0x0376E6E7)", crc);
+        if (crc == 32'h0376E6E7)
+            $display(" Test successful");
+        else
+            $display(" Test unsuccessful");
       $display("crc_out = 0x%8h ", crc);
     $stop;
     
   end
-
-// initial
-//   begin
-//     fork
-//       clk_gen;
-//       apply_reset;
-//     join_none
-//     repeat( 10 )
-//       @( posedge clk );
-//     crc_en <= 1'b1;
-//     data <= 8'hff;
-//     @( posedge clk );
-//     data <= 8'h00;
-//     @( posedge clk );
-//     data <= 8'h00;
-//     @( posedge clk );
-//     data <= 8'h00;
-//     @( posedge clk );
-//     data <= 8'h1e;
-//     @( posedge clk );
-//     data <= 8'hf0;
-//     @( posedge clk );
-//     data <= 8'h1e;
-//     @( posedge clk );
-//     data <= 8'hc7;
-//     @( posedge clk );
-//     data <= 8'h4f;
-//     @( posedge clk );
-//     data <= 8'h82;
-//     @( posedge clk );
-//     data <= 8'h78;
-//     @( posedge clk );
-//     data <= 8'hc5;
-//     @( posedge clk );
-//     data <= 8'h82;
-//     @( posedge clk );
-//     data <= 8'he0; 
-//     @( posedge clk );
-//     data <= 8'h8c;
-//     @( posedge clk );
-//     data <= 8'h70;
-//     @( posedge clk );
-//     data <= 8'hd2;
-//     @( posedge clk );
-//     data <= 8'h3c;
-//     @( posedge clk );
-//     data <= 8'h78;
-//     @( posedge clk );
-//     data <= 8'he9;
-//     @( posedge clk );
-//     data <= 8'hff;
-//     @( posedge clk );
-//     data <= 8'h00;
-//     @( posedge clk );
-//     data <= 8'h00;
-//     @( posedge clk );
-//     data <= 8'h01;
-//     @( posedge clk );
-//     crc_en <= 1'b0;
-//     data <= 8'h00;
-//     repeat( 10 )
-//       @( posedge clk );
-//     $stop;
-//   end
 
 endmodule
