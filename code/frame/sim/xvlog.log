@@ -1,0 +1,4 @@
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/elias/Documents/2_Semester/DHDV/Projekt/DHDV_Project/code/frame/src/Ethernet_fame.sv" into library work
+INFO: [VRFC 10-311] analyzing module Ethernet_frame_gen
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/elias/Documents/2_Semester/DHDV/Projekt/DHDV_Project/code/frame/src/Ethernet_frame_tb.sv" into library work
+INFO: [VRFC 10-311] analyzing module Ethernet_frame_gen_tb

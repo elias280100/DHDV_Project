@@ -1,0 +1,25 @@
+#-----------------------------------------------------------
+# xsim v2024.2 (64-bit)
+# SW Build 5239630 on Fri Nov 08 22:34:34 MST 2024
+# IP Build 5239520 on Sun Nov 10 16:12:51 MST 2024
+# SharedData Build 5239561 on Fri Nov 08 14:39:27 MST 2024
+# Start of session at: Thu Feb 26 16:27:18 2026
+# Process ID         : 252278
+# Current directory  : /home/elias/Documents/2_Semester/DHDV/Projekt/DHDV_Project/code/frame/sim
+# Command line       : xsim -mode tcl -source {xsim.dir/Ethernet_frame_gen_tb_snapshot/xsim_script.tcl}
+# Log file           : /home/elias/Documents/2_Semester/DHDV/Projekt/DHDV_Project/code/frame/sim/xsim.log
+# Journal file       : /home/elias/Documents/2_Semester/DHDV/Projekt/DHDV_Project/code/frame/sim/xsim.jou
+# Running On         : elias-ThinkPad-E14-Gen-6
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 24.04.3 LTS
+# Processor Detail   : AMD Ryzen 7 7735HS with Radeon Graphics
+# CPU Frequency      : 2308.087 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 32340 MB
+# Swap memory        : 8589 MB
+# Total Virtual      : 40930 MB
+# Available Virtual  : 34757 MB
+#-----------------------------------------------------------
+source xsim.dir/Ethernet_frame_gen_tb_snapshot/xsim_script.tcl
+run -all

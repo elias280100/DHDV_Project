@@ -1,16 +1,138 @@
+`timescale 1 ps / 1 ps
 module Ethernet_frame_gen_tb;
+
+parameter CLK_T             = 10000;
 
 logic clk;
 logic reset;
 logic start;
-logic [47:0] MAC_dest;
-logic [47:0] MAC_source;
-logic [15_0] ethernet_type;
-logic [7:0] payload [0:1499];
+// logic [47:0] MAC_dest;
+// logic [47:0] MAC_source;
+// logic [15_0] ethernet_type;
+logic [7:0] MAC_dest [5:0];
+logic [7:0] MAC_source [5:0];
+logic [7:0] ethernet_type [1:0];
+logic [10:0] payload_length;
+logic [7:0] payload [1499:0];
 
-logic [31:0] CRC32_crc;
-logic [7:0] CRC32_data;
-logic CRC32_valid;
+logic [7:0] tb_CRC32_crc[3:0];
+logic [7:0] tb_CRC32_data;
+logic tb_CRC32_valid;
 
-logic [7:0] tx_data;
-logic frame_done;
+logic [7:0] tb_tx_data;
+logic tb_tx_valid;
+logic tb_frame_done;
+
+
+initial
+  begin
+    clk    = 1'b0;
+    reset    = 1'b0;
+    start = 1'b0;
+  end
+
+task automatic clk_gen;
+  forever
+    begin
+      #( CLK_T / 2 );
+      clk <= ~clk;
+    end
+endtask
+
+task automatic apply_reset;
+  @( posedge clk );
+  reset = 1'b1;
+  @( posedge clk );
+  reset = 1'b0;
+endtask
+
+
+Ethernet_frame_gen dut (
+    .clk(clk),
+    .reset(reset),
+    .start(start),
+    .MAC_dest_addr(MAC_dest),
+    .MAC_source_addr(MAC_source),
+    .ethernet_type(ethernet_type),
+    .payload_length(payload_length),
+    .payload(payload),
+    .CRC32_crc(tb_CRC32_crc),
+    .CRC32_data(tb_CRC32_data),
+    .CRC32_valid(tb_CRC32_valid),
+    .tx_data(tb_tx_data),
+    .tx_valid(tb_tx_valid),
+    .frame_done(tb_frame_done)
+);
+
+//Wavefrom dump
+    initial begin
+        // Dump für GTKWave/ModelSim
+        $dumpfile("Ethernet_frame.vcd");
+        $dumpvars(0, Ethernet_frame_gen_tb);
+    end
+
+
+
+    initial
+    begin
+        fork
+        clk_gen;
+        apply_reset;
+        join_none
+        repeat( 10 )
+        @( posedge clk );
+        
+        MAC_dest[0] <= 8'h35;
+        MAC_dest[1] <= 8'h35;
+        MAC_dest[2] <= 8'h35;
+        MAC_dest[3] <= 8'h35;
+        MAC_dest[4] <= 8'h35;
+        MAC_dest[5] <= 8'h35;
+
+        MAC_source[0] <= 8'h86;
+        MAC_source[1] <= 8'h86;
+        MAC_source[2] <= 8'h86;
+        MAC_source[3] <= 8'h86;
+        MAC_source[4] <= 8'h86;
+        MAC_source[5] <= 8'h86;
+
+        ethernet_type[0] <= 8'h27;
+        ethernet_type[1] <= 8'h27;
+
+        payload[0] <= 8'h42;
+        payload[1] <= 8'h42;
+        payload[2] <= 8'h42;
+        payload[3] <= 8'h42;
+        payload[4] <= 8'h42;
+
+        // payload[1499] <= 8'h42;
+        // payload[1498] <= 8'h42;
+        // payload[1497] <= 8'h42;
+        // payload[1496] <= 8'h42;
+        // payload[1495] <= 8'h42;
+        //payload[1499] <= 8'h42;
+
+        payload_length <= 11'd5;
+
+        tb_CRC32_crc[0] <= 8'h50;
+        tb_CRC32_crc[1] <= 8'h50;
+        tb_CRC32_crc[2] <= 8'h50;
+        tb_CRC32_crc[3] <= 8'h50;
+
+        @( posedge clk );
+        start <= 1'b1;
+        @ ( posedge clk );
+
+        repeat( 1000 )
+        @( posedge clk );
+        // $display("crc_out = 0x%8h (erwartet: 0x0376E6E7)", crc);
+        //     if (crc == 32'h0376E6E7)
+        //         $display(" Test successful");
+        //     else
+        //         $display(" Test unsuccessful");
+        // $display("crc_out = 0x%8h ", crc);
+        $stop;
+        
+    end
+
+endmodule
