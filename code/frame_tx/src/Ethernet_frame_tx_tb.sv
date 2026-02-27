@@ -105,13 +105,6 @@ Ethernet_frame_gen dut (
         payload[3] <= 8'h42;
         payload[4] <= 8'h42;
 
-        // payload[1499] <= 8'h42;
-        // payload[1498] <= 8'h42;
-        // payload[1497] <= 8'h42;
-        // payload[1496] <= 8'h42;
-        // payload[1495] <= 8'h42;
-        //payload[1499] <= 8'h42;
-
         payload_length <= 11'd5;
 
         tb_CRC32_crc[0] <= 8'h50;
@@ -125,12 +118,7 @@ Ethernet_frame_gen dut (
 
         repeat( 1000 )
         @( posedge clk );
-        // $display("crc_out = 0x%8h (erwartet: 0x0376E6E7)", crc);
-        //     if (crc == 32'h0376E6E7)
-        //         $display(" Test successful");
-        //     else
-        //         $display(" Test unsuccessful");
-        // $display("crc_out = 0x%8h ", crc);
+        
         $stop;
         
     end

@@ -19,7 +19,8 @@ module Ethernet_frame_gen (
     input clk,
     input reset,
     input start,
-    // input [47:0] MAC_dest_addr,
+    //Daten Input Bit für Bit oder Byte?
+    // input [47:0] MAC_dest_addr,      
     // input [47:0] MAC_source_addr,
     // input [15:0] ethernet_type,
     input [7:0] MAC_dest_addr [5:0],        //6 Bytes
@@ -140,12 +141,9 @@ module Ethernet_frame_gen (
             end
 
             PREAMBLE: begin 
-                //start <= 1'b0;      //hier zurücksetzen?
                 tx_valid <= 1'b1;
                 tx_data <= 8'h55;               //alternating pattern of binary 56 ones and zeroes
-                //cnt_preamble++;
                 if (cnt_preamble == 3'b110) begin
-                   // cnt_preamble <= 3'b0;
                     next_state <= SFD;
                 end
             end
@@ -187,13 +185,8 @@ module Ethernet_frame_gen (
                 tx_data <= MAC_dest_addr[5 - cnt_MAC_dest];     //MSB first
                 CRC32_data <= MAC_dest_addr[5 - cnt_MAC_dest];
                 if (cnt_MAC_dest == 3'b101) begin
-                    //cnt_MAC_dest <= 3'b000;
-                    //CRC32_valid <= 1'b0;
                     next_state <= MAC_SOURCE;
                 end
-                // else begin
-                //     cnt_MAC_dest++;
-                // end
             end
 
             MAC_SOURCE: begin                              //was passiert mit ungenutzten states? was ist standard hierfür?
@@ -228,25 +221,16 @@ module Ethernet_frame_gen (
                 tx_data <= MAC_source_addr[5 - cnt_MAC_source];     //MSB first
                 CRC32_data <= MAC_source_addr[5 - cnt_MAC_source];
                 if (cnt_MAC_source == 3'b101) begin
-                    //cnt_MAC_source <= 3'b000;
-                    //CRC32_valid <= 1'b0;
                     next_state <= TYPE;
                 end
-                // else begin
-                //     cnt_MAC_source++;
-                // end
             end
 
             TYPE: begin
                 tx_data <= ethernet_type[1 - cnt_ethernet_type];
                 CRC32_data <= ethernet_type[1 - cnt_ethernet_type];
                 if (cnt_ethernet_type == 1'b1) begin
-                    //cnt_ethernet_type <= 1'b0;
                     next_state <= LENGTH;
                 end
-                // else begin
-                //     cnt_ethernet_type++;
-                // end
             end
 
             LENGTH: begin        //was mache ich hier?
@@ -261,22 +245,16 @@ module Ethernet_frame_gen (
                 CRC32_data <= payload[MAX_payload - 1 - cnt_payload];   //MSB first
                 //CRC32_data <= payload[cnt_payload];         //LSB first
                 if (cnt_payload == MAX_payload - 2) begin           
-                    //cnt_payload <= 11'b0;
                     CRC32_valid <= 1'b0;            //hier CRC32_valid zurücksetzen?
                     next_state <= PAD;
                 end
-                // else begin
-                //     cnt_payload++;
-                // end
             end
 
             PAD: begin               //Minimum frame Größe von 64 bytes sicherstellen
-                if ((14 + MAX_payload + cnt_pad) < 11'd6) begin
+                if ((14 + MAX_payload + cnt_pad) < 11'd64) begin
                     tx_data <= 8'h00;
-                    //cnt_pad++;
                 end
                 else begin
-                    //cnt_pad <= 6'b0;
                     next_state <= FCS;
                 end
             end
@@ -285,24 +263,16 @@ module Ethernet_frame_gen (
                 // tx_data <= CRC32_crc[(31 - cnt_fcs*8) : ((31 - cnt_fcs*8) -7)];
                 tx_data <= CRC32_crc[3 - cnt_fcs];      //MSB first
                 if (cnt_fcs == 2'b11) begin
-                    //cnt_fcs <= 2'b00;
                     next_state <= IPG;
                 end
-                // else begin
-                //     cnt_fcs++;
-                // end
             end
 
             IPG : begin
                 tx_data <= 8'h00;
                 if (cnt_ipg == 4'b1011) begin       //12 bytes
-                    //cnt_ipg <= 4'b0000;
                     frame_done <= 1'b1;
                     next_state <= IDLE;
                 end
-                // else begin
-                //     cnt_ipg++;
-                // end
             end
 
             default tx_data <= 'x;
