@@ -1,0 +1,1 @@
+-debug "typical" -top "Ethernet_frame_rx_tb" -snapshot "Ethernet_frame_rx_tb_snapshot" 

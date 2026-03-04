@@ -20,6 +20,7 @@ module Ethernet_frame_gen (
     input reset,
     input start,
     //Daten Input Bit für Bit oder Byte?
+    //kann ich auch Daten Bit für Bit oder Bytewise eingeben, sodass das mein einzifer input ist?
     // input [47:0] MAC_dest_addr,      
     // input [47:0] MAC_source_addr,
     // input [15:0] ethernet_type,
@@ -30,13 +31,12 @@ module Ethernet_frame_gen (
     input [7:0] payload [1499:0],       //1500 Bytes
 
     //CRC Generator
-    input logic [7:0] CRC32_crc[3:0],       //4 Bytes
+    input logic [7:0] CRC32_crc[3:0],       //4 Bytes das hier vllt auch als 32 bit?
     output logic [7:0] CRC32_data,
     output logic CRC32_valid,
 
     output logic [7:0] tx_data,
     output logic tx_valid,
-    //brauche ich ein tx_valid?
     output logic frame_done
 
 ); 
@@ -128,10 +128,10 @@ module Ethernet_frame_gen (
         end
 
 
-    always_comb begin : FSM_ethernet_frame
+    always_comb begin : FSM_ethernet_frame_tx
         case (state)
             IDLE: begin
-                tx_valid <= 1'b0;
+                //tx_valid <= 1'b0;
                 CRC32_valid <= 1'b0;
                 tx_data <= 8'd0;
                 frame_done <= 1'b0;
@@ -245,7 +245,7 @@ module Ethernet_frame_gen (
                 CRC32_data <= payload[MAX_payload - 1 - cnt_payload];   //MSB first
                 //CRC32_data <= payload[cnt_payload];         //LSB first
                 if (cnt_payload == MAX_payload - 2) begin           
-                    CRC32_valid <= 1'b0;            //hier CRC32_valid zurücksetzen?
+                    CRC32_valid <= 1'b0;            //hier CRC32_valid zurücksetzen? oder muss padding mit rein?
                     next_state <= PAD;
                 end
             end
@@ -269,6 +269,7 @@ module Ethernet_frame_gen (
 
             IPG : begin
                 tx_data <= 8'h00;
+                tx_valid <= 1'b0;
                 if (cnt_ipg == 4'b1011) begin       //12 bytes
                     frame_done <= 1'b1;
                     next_state <= IDLE;

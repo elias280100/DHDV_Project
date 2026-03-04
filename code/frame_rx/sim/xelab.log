@@ -1,0 +1,18 @@
+Vivado Simulator v2024.2.0
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: /tools/Xilinx/Vivado/2024.2/bin/unwrapped/lnx64.o/xelab -debug typical -top Ethernet_frame_rx_tb -snapshot Ethernet_frame_rx_tb_snapshot 
+Multi-threading is on. Using 14 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+WARNING: [VRFC 10-3091] actual bit length 8 differs from formal bit length 11 for port 'fifo_used_memory' [/home/elias/Documents/2_Semester/DHDV/Projekt/DHDV_Project/code/frame_rx/src/Ethernet_frame_rx.sv:76]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package work.$unit_Ethernet_frame_rx_sv_13305...
+Compiling module work.dual_port_ram
+Compiling module work.sync_fifo_default
+Compiling module work.Ethernet_frame_rx
+Compiling module work.Ethernet_frame_rx_tb
+Built simulation snapshot Ethernet_frame_rx_tb_snapshot
