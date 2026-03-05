@@ -1,4 +1,5 @@
 `timescale 1 ps / 1 ps
+//Noch nicht getestet!!
 typedef enum {
     IDLE, 
     PREAMBLE, 
@@ -21,14 +22,15 @@ module Ethernet_frame_gen (
     input start,
     //Daten Input Bit für Bit oder Byte?
     //kann ich auch Daten Bit für Bit oder Bytewise eingeben, sodass das mein einzifer input ist?
-    // input [47:0] MAC_dest_addr,      
-    // input [47:0] MAC_source_addr,
-    // input [15:0] ethernet_type,
-    input [7:0] MAC_dest_addr [5:0],        //6 Bytes
-    input [7:0] MAC_source_addr [5:0],      //6 Bytes
-    input [7:0] ethernet_type [1:0],        //2 Bytes
-    input [10:0] payload_length,
-    input [7:0] payload [1499:0],       //1500 Bytes
+    input [47:0] MAC_dest_addr,      
+    input [47:0] MAC_source_addr,
+    input [15:0] ethernet_type,
+    input [11999:0] payload,
+    // input [7:0] MAC_dest_addr [5:0],        //6 Bytes
+    // input [7:0] MAC_source_addr [5:0],      //6 Bytes
+    // input [7:0] ethernet_type [1:0],        //2 Bytes
+    // input [10:0] payload_length,
+    // input [7:0] payload [1499:0],       //1500 Bytes
 
     //CRC Generator
     input logic [7:0] CRC32_crc[3:0],       //4 Bytes das hier vllt auch als 32 bit?
@@ -68,15 +70,30 @@ module Ethernet_frame_gen (
             end 
             else begin
                 state <= next_state;
+                //IDLE
+                if (state == IDLE) begin
+                    tx_data <= 8'd0;
+                    frame_done <= 1'b0;
+                    CRC32_valid <= 1'b0;
+                end
                 //counter PREAMBLE
                 if (state == PREAMBLE) begin
+                    tx_valid <= 1'b1;
+                    tx_data <= 8'h55;               //alternating pattern of binary 56 ones and zeroes
                     cnt_preamble++;
                 end
                 else if (next_state == PREAMBLE) begin
                     cnt_preamble <= 3'b000;;
                 end
+                //SFD
+                if (state == SFD) begin
+                    tx_data <= 8'hAB;           //Standard 10101011
+                end
                 //counter MAC Dest
                 if (state == MAC_DEST) begin
+                    CRC32_valid <= 1'b1;
+                    tx_data <= MAC_dest_addr[47 - cnt_MAC_dest*8 -: 8];     //MSB first
+                    CRC32_data <= MAC_dest_addr[47 - cnt_MAC_dest*8 -: 8]; 
                     cnt_MAC_dest++;
                 end
                 else if (next_state == MAC_DEST) begin
@@ -84,6 +101,8 @@ module Ethernet_frame_gen (
                 end
                 //counter MAC Source
                 if (state == MAC_SOURCE) begin
+                    tx_data <= MAC_source_addr[47 - cnt_MAC_source*8 -: 8];     //MSB first
+                    CRC32_data <= MAC_source_addr[47 - cnt_MAC_source*8 -: 8];
                     cnt_MAC_source++;
                 end
                 else if (next_state == MAC_SOURCE) begin
@@ -91,13 +110,21 @@ module Ethernet_frame_gen (
                 end
                 //counter TYPE
                 if (state == TYPE) begin
+                    tx_data <= ethernet_type[15 - cnt_ethernet_type*8 -: 8];
+                    CRC32_data <= ethernet_type[15 - cnt_ethernet_type*8 -: 8];
                     cnt_ethernet_type++;
                 end
                 else if (next_state == TYPE) begin
                     cnt_ethernet_type <= 1'b0;
                 end
+                //LENGTH
+                MAX_payload <= payload_length;
                 //counter PAYLOAD
                 if (state == PAYLOAD) begin
+                    tx_data <= payload[MAX_payload - 1 - cnt_payload*8 -: 8];  //MSB first
+                    //tx_data <= payload[cnt_payload];          //LSB first
+                    CRC32_data <= payload[MAX_payload - 1 - cnt_payload*8 -: 8];   //MSB first
+                    //CRC32_data <= payload[cnt_payload];         //LSB first
                     cnt_payload++;
                 end
                 else if (next_state == PAYLOAD) begin
@@ -105,13 +132,18 @@ module Ethernet_frame_gen (
                 end
                 //counter PAD
                 if (state == PAD) begin
+                    if ((14 + MAX_payload + cnt_pad) < 11'd64) begin
+                    tx_data <= 8'h00;
                     cnt_pad++;
+                    end 
                 end
                 else if (next_state == PAD) begin
                     cnt_pad <= 6'b000000;
                 end
                 //counter FCS
                 if (state == FCS) begin
+                    CRC32_valid <= 1'b0;
+                    tx_data <= CRC32_crc[3 - cnt_fcs*8 -: 8];      //MSB first
                     cnt_fcs++;
                 end
                 else if (next_state == FCS) begin
@@ -119,6 +151,11 @@ module Ethernet_frame_gen (
                 end
                 //counter IPG
                 if (state == IPG) begin
+                    tx_data <= 8'h00;
+                    tx_valid <= 1'b0;
+                    if (cnt_ipg == 4'b1011) begin
+                        frame_done <= 1'b1;
+                    end
                     cnt_ipg++;
                 end
                 else if (next_state == IPG) begin
@@ -132,25 +169,17 @@ module Ethernet_frame_gen (
         case (state)
             IDLE: begin
                 //tx_valid <= 1'b0;
-                CRC32_valid <= 1'b0;
-                tx_data <= 8'd0;
-                frame_done <= 1'b0;
-                if (start == 1'b1) begin
-                    next_state <= PREAMBLE;
-                end
+                
+                next_state (start == 1'b1) ? PREAMBLE : IDLE;
             end
 
             PREAMBLE: begin 
-                tx_valid <= 1'b1;
-                tx_data <= 8'h55;               //alternating pattern of binary 56 ones and zeroes
-                if (cnt_preamble == 3'b110) begin
-                    next_state <= SFD;
-                end
+                next_state (cnt_preamble == 3'b110) ? SFD : PREAMBLE;
             end
 
             SFD: begin
-                tx_data <= 8'hAB;           //Standard 10101011
-                next_state <= MAC_DEST;
+                //wann springe ich hier weiter?
+                next_state = (tx_data == 8'hAB) ? MAC_DEST : SFD;
             end
 
             MAC_DEST: begin                              //was passiert mit ungenutzten states? was ist standard hierfür?
@@ -182,11 +211,9 @@ module Ethernet_frame_gen (
                 //     end
                 //     default tx_data <= 'x';
                 // endcase
-                tx_data <= MAC_dest_addr[5 - cnt_MAC_dest];     //MSB first
-                CRC32_data <= MAC_dest_addr[5 - cnt_MAC_dest];
-                if (cnt_MAC_dest == 3'b101) begin
-                    next_state <= MAC_SOURCE;
-                end
+                
+                next_state (cnt_MAC_dest == 3'b101) ? MAC_SOURCE : MAC_DEST;
+                
             end
 
             MAC_SOURCE: begin                              //was passiert mit ungenutzten states? was ist standard hierfür?
@@ -218,62 +245,39 @@ module Ethernet_frame_gen (
                 //     end
                 //     default tx_data <= 'x';
                 // endcase
-                tx_data <= MAC_source_addr[5 - cnt_MAC_source];     //MSB first
-                CRC32_data <= MAC_source_addr[5 - cnt_MAC_source];
-                if (cnt_MAC_source == 3'b101) begin
-                    next_state <= TYPE;
-                end
+                
+                next_state (cnt_MAC_source == 3'b101) ? TYPE : MAC_SOURCE;
+                
             end
 
             TYPE: begin
-                tx_data <= ethernet_type[1 - cnt_ethernet_type];
-                CRC32_data <= ethernet_type[1 - cnt_ethernet_type];
-                if (cnt_ethernet_type == 1'b1) begin
-                    next_state <= LENGTH;
-                end
+                
+                next_state (cnt_ethernet_type == 1'b1) ? LENGTH : TYPE;
             end
 
             LENGTH: begin        //was mache ich hier?
-                MAX_payload <= payload_length;
-                next_state <= PAYLOAD;
+                
+                next_state = (MAX_payload == payload_length) ? PAYLOAD : LENGTH;
             end
 
             PAYLOAD: begin      //stimmt die Reihenfolge der bytes hier? ich schicke MSB zuerst, passt das?
-                tx_data <= payload[MAX_payload - 1 - cnt_payload];  //MSB first
-                //tx_data <= payload[cnt_payload];          //LSB first
+                
                 //CRC32_valid <= 1'b1;
-                CRC32_data <= payload[MAX_payload - 1 - cnt_payload];   //MSB first
-                //CRC32_data <= payload[cnt_payload];         //LSB first
-                if (cnt_payload == MAX_payload - 2) begin           
-                    CRC32_valid <= 1'b0;            //hier CRC32_valid zurücksetzen? oder muss padding mit rein?
-                    next_state <= PAD;
-                end
+                next_state (cnt_payload == MAX_payload -2) ? PAD : PAYLOAD;
+                
             end
 
             PAD: begin               //Minimum frame Größe von 64 bytes sicherstellen
-                if ((14 + MAX_payload + cnt_pad) < 11'd64) begin
-                    tx_data <= 8'h00;
-                end
-                else begin
-                    next_state <= FCS;
-                end
+                next_state = ((14 + MAX_payload + cnt_pad) >= 11'd64) ? FCS : PAD;
             end
 
             FCS: begin
                 // tx_data <= CRC32_crc[(31 - cnt_fcs*8) : ((31 - cnt_fcs*8) -7)];
-                tx_data <= CRC32_crc[3 - cnt_fcs];      //MSB first
-                if (cnt_fcs == 2'b11) begin
-                    next_state <= IPG;
-                end
+                next_state (cnt_fcs == 2'b11) ? IPG : FCS;
             end
 
             IPG : begin
-                tx_data <= 8'h00;
-                tx_valid <= 1'b0;
-                if (cnt_ipg == 4'b1011) begin       //12 bytes
-                    frame_done <= 1'b1;
-                    next_state <= IDLE;
-                end
+                next_state (cnt_ipg == 4'b1011) ? IDLE : IPG
             end
 
             default tx_data <= 'x;

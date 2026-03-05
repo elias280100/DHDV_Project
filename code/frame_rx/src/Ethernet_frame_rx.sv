@@ -211,6 +211,7 @@ typedef enum {
         end
     end 
 
+    //welche signale in always_comb setzen und welche in always_ff?
 
     always_comb begin : FSM_ethernet_frame_rx
         case (state)
