@@ -19,10 +19,15 @@ parameter FIFO_DEPTH  = 2048; // Parameterizable depth of FIFO RAM
         logic CRC32_error;
         logic CRC32_correct;
 
-        logic [7:0] MAC_dest_addr [5:0];        //6 Bytes
-        logic [7:0] MAC_source_addr [5:0];      //6 Bytes
-        logic [7:0] ethernet_type [1:0];        //2 Bytes
-        logic [7:0] payload [1499:0];       //1500 Bytes
+        logic [47:0] MAC_dest_addr;
+        logic [47:0] MAC_source_addr;
+        logic [15:0] ethernet_type;
+        logic [200:0] payload; 
+
+        // logic [7:0] MAC_dest_addr [5:0];        //6 Bytes
+        // logic [7:0] MAC_source_addr [5:0];      //6 Bytes
+        // logic [7:0] ethernet_type [1:0];        //2 Bytes
+        // logic [7:0] payload [1499:0];       //1500 Bytes
 
 
 initial
@@ -59,7 +64,7 @@ Ethernet_frame_rx #(
     .MAC_source_addr(MAC_source_addr),
     .ethernet_type(ethernet_type),
     .payload(payload),
-    .CRC32_crc(CRC32_crc),
+    //.CRC32_crc(CRC32_crc),
     .CRC32_data(CRC32_data),
     .CRC32_valid(CRC32_valid),
     .CRC32_correct(CRC32_correct),
@@ -137,30 +142,50 @@ Ethernet_frame_rx #(
         @( posedge clk );
         rx_data <= 8'hE5;
         @( posedge clk );
-        rx_data <= 8'hE5;
+        rx_data <= 8'hE6;
         @( posedge clk );
-        rx_data <= 8'hE5;
+        rx_data <= 8'hE7;
         @( posedge clk );
-        rx_data <= 8'hE5;
+        rx_data <= 8'hE8;
         @( posedge clk );
-        rx_data <= 8'hE5;
+        rx_data <= 8'hE9;
         @( posedge clk );
-        rx_data <= 8'hE5;
+        rx_data <= 8'h10;
         @( posedge clk );
-        rx_data <= 8'hE5;
+        rx_data <= 8'h11;
+        @( posedge clk );
+        rx_data <= 8'h12;
+        @( posedge clk );
+        rx_data <= 8'h13;
+        @( posedge clk );
+        rx_data <= 8'h14;
+        @( posedge clk );
+        // rx_data <= 8'hE5;
+        // @( posedge clk );
+        // rx_data <= 8'hE5;
+        // @( posedge clk );
+        // rx_data <= 8'hE5;
+        // @( posedge clk );
+        // rx_data <= 8'hE5;
+        // @( posedge clk );
+        // rx_data <= 8'hE5;
+        // @( posedge clk );
+        // rx_data <= 8'hE5;
+        // @( posedge clk );
+        // rx_data <= 8'hE5;
+        // @( posedge clk );
+        // rx_data <= 8'hE5;
         //FCS
         @( posedge clk );
-        rx_data <= 8'h55;
+        rx_data <= 8'h60;
         @( posedge clk );
-        rx_data <= 8'h55;
+        rx_data <= 8'h70;
         @( posedge clk );
-        rx_data <= 8'h55;
+        rx_data <= 8'h80;
         @( posedge clk );
-        rx_data <= 8'h55;
-        
-
-
-        @( posedge clk );
+        rx_data <= 8'h90;
+        //@( posedge clk );
+        //@( posedge clk );
         rx_valid <= 1'b0;
         @ ( posedge clk );
 
