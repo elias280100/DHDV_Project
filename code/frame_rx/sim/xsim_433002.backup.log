@@ -3,8 +3,8 @@
 # SW Build 5239630 on Fri Nov 08 22:34:34 MST 2024
 # IP Build 5239520 on Sun Nov 10 16:12:51 MST 2024
 # SharedData Build 5239561 on Fri Nov 08 14:39:27 MST 2024
-# Start of session at: Thu Mar  5 13:48:16 2026
-# Process ID         : 367355
+# Start of session at: Sun Mar  8 12:51:03 2026
+# Process ID         : 433002
 # Current directory  : /home/elias/Documents/2_Semester/DHDV/Projekt/DHDV_Project/code/frame_rx/sim
 # Command line       : xsim -mode tcl -source {xsim.dir/Ethernet_frame_rx_tb_snapshot/xsim_script.tcl}
 # Log file           : /home/elias/Documents/2_Semester/DHDV/Projekt/DHDV_Project/code/frame_rx/sim/xsim.log
@@ -13,13 +13,18 @@
 # Platform           : Ubuntu
 # Operating System   : Ubuntu 24.04.3 LTS
 # Processor Detail   : AMD Ryzen 7 7735HS with Radeon Graphics
-# CPU Frequency      : 2054.548 MHz
+# CPU Frequency      : 2039.940 MHz
 # CPU Physical cores : 8
 # CPU Logical cores  : 16
 # Host memory        : 32340 MB
 # Swap memory        : 8589 MB
 # Total Virtual      : 40930 MB
-# Available Virtual  : 34507 MB
+# Available Virtual  : 34746 MB
 #-----------------------------------------------------------
 source xsim.dir/Ethernet_frame_rx_tb_snapshot/xsim_script.tcl
+# xsim {Ethernet_frame_rx_tb_snapshot} -autoloadwcfg -runall
+Time resolution is 1 ps
 run -all
+$stop called at time : 10365 ns : File "/home/elias/Documents/2_Semester/DHDV/Projekt/DHDV_Project/code/frame_rx/src/Ethernet_frame_rx_tb.sv" Line 286
+exit
+INFO: [Common 17-206] Exiting xsim at Sun Mar  8 12:51:05 2026...
