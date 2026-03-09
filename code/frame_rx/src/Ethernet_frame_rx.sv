@@ -33,7 +33,7 @@ typedef enum {
         output logic [47:0] MAC_dest_addr,
         output logic [47:0] MAC_source_addr,
         output logic [15:0] ethernet_type,
-        output logic [550:0] payload 
+        output logic [100:0] payload 
         // output logic [7:0] MAC_dest_addr [5:0],        //6 Bytes
         // output logic [7:0] MAC_source_addr [5:0],      //6 Bytes
         // output logic [7:0] ethernet_type [1:0],        //2 Bytes
@@ -183,6 +183,8 @@ typedef enum {
             if (state == PAYLOAD) begin
                 // length_payload_fcs <= fifo_used_memory;  
                 cnt_payload++;
+                CRC32_valid = 1'b1;
+                CRC32_data <= fifo_data;
                 // if (fifo_used_memory > 4) begin // dann solange Daten reinschreiben bis nur noch 4 bytes im fifo sind -> FCS
                 //         payload[(((length_payload_fcs-5)*8)-1) -: 8] <= fifo_data;
                 //         //payload[length_payload_fcs - 4] <= fifo_data; //muss ich hier überhaupt mit counter runterzählen? oder reicht length
@@ -272,14 +274,14 @@ typedef enum {
 
 
             PAYLOAD: begin
-                CRC32_valid = 1'b1;
+                //CRC32_valid = 1'b1;
                 fifo_wr_en = 1'b0;
                 fifo_rd_en = 1'b1;     //read enable
                 length_payload_fcs = fifo_used_memory;
                 //if (fifo_used_memory > 3) begin // dann solange Daten reinschreiben bis nur noch 4 bytes im fifo sind -> FCS
-                    payload[(((length_payload_fcs-5)*8)-1) -: 8] = fifo_data;
+                    payload[(((length_payload_fcs-4)*8)-1) -: 8] = fifo_data;
                     //payload[length_payload_fcs - 4] <= fifo_data; //muss ich hier überhaupt mit counter runterzählen? oder reicht length
-                    CRC32_data = fifo_data;
+                    //CRC32_data = fifo_data;
                 //end
                     //das hier nur einmal zuweisen, wenn keine neue Daten mehr ins fifo geschrieben werden und noch nicht gelesen wurde
                 
@@ -289,7 +291,7 @@ typedef enum {
             FCS: begin
                 length_payload_fcs = fifo_used_memory;
                 CRC32_data = fifo_data;
-                next_state = (fifo_used_memory == 0) ? CHECK : FCS;
+                next_state = (fifo_empty == 1'b1) ? CHECK : FCS;
                 end
 
             CHECK: begin            //das hier vllt auch alles in always_ff?

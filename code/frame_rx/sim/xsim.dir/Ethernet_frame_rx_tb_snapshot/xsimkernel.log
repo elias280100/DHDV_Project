@@ -1,7 +1,7 @@
-Running: xsim.dir/Ethernet_frame_rx_tb_snapshot/xsimk -runall -simmode gui -wdb Ethernet_frame_rx_tb_snapshot.wdb -simrunnum 0 -socket 52439
+Running: xsim.dir/Ethernet_frame_rx_tb_snapshot/xsimk -runall -simmode gui -wdb Ethernet_frame_rx_tb_snapshot.wdb -simrunnum 0 -socket 40239
 Design successfully loaded
 Design Loading Memory Usage: 179972 KB (Peak: 180028 KB)
-Design Loading CPU Usage: 760 ms
+Design Loading CPU Usage: 680 ms
 Simulation completed
 Simulation Memory Usage: 261968 KB (Peak: 319240 KB)
-Simulation CPU Usage: 770 ms
+Simulation CPU Usage: 680 ms

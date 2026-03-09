@@ -22,7 +22,7 @@ parameter FIFO_DEPTH  = 2048; // Parameterizable depth of FIFO RAM
         logic [47:0] MAC_dest_addr;
         logic [47:0] MAC_source_addr;
         logic [15:0] ethernet_type;
-        logic [550:0] payload; 
+        logic [100:0] payload; 
 
         // logic [7:0] MAC_dest_addr [5:0];        //6 Bytes
         // logic [7:0] MAC_source_addr [5:0];      //6 Bytes
@@ -141,14 +141,14 @@ Ethernet_frame_rx #(
         //PAYLOAD
         @( posedge clk );
         rx_data <= 8'h42;
-        // @( posedge clk );
-        // rx_data <= 8'h42;
-        // @( posedge clk );
-        // rx_data <= 8'h42;
-        // @( posedge clk );
-        // rx_data <= 8'h42;
-        // @( posedge clk );
-        // rx_data <= 8'h42;
+        @( posedge clk );
+        rx_data <= 8'h42;
+        @( posedge clk );
+        rx_data <= 8'h42;
+        @( posedge clk );
+        rx_data <= 8'h42;
+        @( posedge clk );
+        rx_data <= 8'h42;
         //PAD
         // @( posedge clk );
         // rx_data <= 8'h00;
@@ -268,13 +268,13 @@ Ethernet_frame_rx #(
         // rx_data <= 8'hE5;
         //FCS
         @( posedge clk );
-        rx_data <= 8'h71;
+        rx_data <= 8'hE7;
         @( posedge clk );
-        rx_data <= 8'h7C;
+        rx_data <= 8'h60;
         @( posedge clk );
-        rx_data <= 8'h7B;
+        rx_data <= 8'h0D;
         @( posedge clk );
-        rx_data <= 8'h22;
+        rx_data <= 8'h97;
         //@( posedge clk );
         // @( posedge clk );
         rx_valid <= 1'b0;
