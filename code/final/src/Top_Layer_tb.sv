@@ -14,6 +14,7 @@ logic [10:0] payload_length;
 logic CRC32_error;
 logic CRC32_correct;
 logic [31:0] CRC32_crc;
+logic Check_done;
 
 logic [47:0] MAC_dest_addr_out;
 logic [47:0] MAC_source_addr_out;
@@ -24,7 +25,7 @@ initial
   begin
     clk    = 1'b0;
     reset    = 1'b0;
-    start = 1'b0;            //anpassen
+    start = 1'b0;            
   end
 
 task automatic clk_gen;
@@ -55,6 +56,7 @@ Top_Layer dut (
     .CRC32_error(CRC32_error),
     .CRC32_correct(CRC32_correct),
     .CRC32_crc(CRC32_crc),
+    .Check_done(Check_done),
 
     .MAC_dest_addr_out(MAC_dest_addr_out),
     .MAC_source_addr_out(MAC_source_addr_out),
@@ -68,6 +70,12 @@ Top_Layer dut (
         $dumpfile("Final.vcd");
         $dumpvars(0, Top_Layer_tb);
     end
+
+  // Reset if one complete frame is received
+  always @(posedge Check_done) begin
+      apply_reset;
+  end
+
 
 initial
     begin
@@ -125,7 +133,7 @@ initial
         @( posedge clk );
         start <= 1'b1;
         @ ( posedge clk );
-
+        
         repeat( 1000 )
         @( posedge clk );
         

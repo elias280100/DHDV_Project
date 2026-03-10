@@ -12,6 +12,7 @@ module Top_Layer (
     output logic CRC32_error,
     output logic CRC32_correct,
     output logic [31:0] CRC32_crc,
+    output logic Check_done,
 
     output logic [47:0] MAC_dest_addr_out,
     output logic [47:0] MAC_source_addr_out,
@@ -54,11 +55,29 @@ module Top_Layer (
         .CRC32_correct(CRC32_correct),
         .CRC32_error(CRC32_error),
         .CRC32_crc(CRC32_crc),
+        .Check_done(Check_done),
         .MAC_dest_addr(MAC_dest_addr_out),
         .MAC_source_addr(MAC_source_addr_out),
         .ethernet_type(ethernet_type_out),
         .payload(payload_out)
     );
+
+    // always_ff @(posedge clk) begin
+    //     if (Check_done == 1'b1) begin
+    //         reset <= 1'b1;
+    //     end
+    //     else begin
+    //         reset <= 1'b0;
+    //     end
+    // end
+    // always_comb begin
+    //     if (Check_done == 1'b1) begin
+    //         reset = 1'b1;
+    //     end
+    //     else begin
+    //         reset = 1'b0;
+    //     end
+    // end
 
 endmodule
 

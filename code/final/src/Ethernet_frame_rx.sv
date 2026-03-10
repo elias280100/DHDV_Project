@@ -28,6 +28,7 @@ typedef enum {
         output logic CRC32_error,
         output logic CRC32_correct,
         output logic [31:0] CRC32_crc,
+        output logic Check_done,
 
 
         //hier vllt alles in einem array
@@ -52,6 +53,7 @@ typedef enum {
     // logic [31:0] CRC32_crc;
     logic [7:0] CRC32_data;
     logic CRC32_valid;
+    
 
     logic [DATA_WIDTH-1:0] fifo_data;
     logic fifo_rd_en;
@@ -234,6 +236,7 @@ typedef enum {
                 CRC32_valid = 1'b0;
                 CRC32_correct = 1'b0;
                 CRC32_error = 1'b0;
+                Check_done = 1'b0;
                 fifo_wr_en = 1'b0;
                 fifo_rd_en = 1'b0;
                 next_state = (rx_valid == 1'b1) ? PREAMBLE : IDLE;
@@ -302,6 +305,7 @@ typedef enum {
             CHECK: begin            //das hier vllt auch alles in always_ff?
                 fifo_rd_en = 1'b0;
                 CRC32_valid = 1'b0;
+                Check_done =1'b1;
                 if (CRC32_crc == 0) begin
                     CRC32_correct = 1'b1;
                 end
