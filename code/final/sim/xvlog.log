@@ -1,0 +1,14 @@
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/elias/Documents/2_Semester/DHDV/Projekt/DHDV_Project/code/final/src/CRC_Generator.sv" into library work
+INFO: [VRFC 10-311] analyzing module CRC32
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/elias/Documents/2_Semester/DHDV/Projekt/DHDV_Project/code/final/src/Ethernet_frame_rx.sv" into library work
+INFO: [VRFC 10-311] analyzing module Ethernet_frame_rx
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/elias/Documents/2_Semester/DHDV/Projekt/DHDV_Project/code/final/src/Ethernet_frame_tx.sv" into library work
+INFO: [VRFC 10-311] analyzing module Ethernet_frame_gen
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/elias/Documents/2_Semester/DHDV/Projekt/DHDV_Project/code/final/src/Top_Layer.sv" into library work
+INFO: [VRFC 10-311] analyzing module Top_Layer
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/elias/Documents/2_Semester/DHDV/Projekt/DHDV_Project/code/final/src/Top_Layer_tb.sv" into library work
+INFO: [VRFC 10-311] analyzing module Top_Layer_tb
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/elias/Documents/2_Semester/DHDV/Projekt/DHDV_Project/code/final/src/dual_port_ram.sv" into library work
+INFO: [VRFC 10-311] analyzing module dual_port_ram
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/elias/Documents/2_Semester/DHDV/Projekt/DHDV_Project/code/final/src/sync_fifo.sv" into library work
+INFO: [VRFC 10-311] analyzing module sync_fifo

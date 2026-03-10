@@ -23,10 +23,11 @@ typedef enum {
         //CRC Generator
         //input logic [7:0] CRC32_crc[3:0],       //4 Bytes das hier vllt auch als 32 bit?
         //input logic [31:0] CRC32_crc,
-        output logic [7:0] CRC32_data,
-        output logic CRC32_valid,
+        // output logic [7:0] CRC32_data,
+        // output logic CRC32_valid,
         output logic CRC32_error,
         output logic CRC32_correct,
+        output logic [31:0] CRC32_crc,
 
 
         //hier vllt alles in einem array
@@ -48,7 +49,9 @@ typedef enum {
     parameter [31:0] final_crc = 32'h00000000;
     parameter [31:0] init = 32'hffffffff;
 
-    logic [31:0] CRC32_crc;
+    // logic [31:0] CRC32_crc;
+    logic [7:0] CRC32_data;
+    logic CRC32_valid;
 
     logic [DATA_WIDTH-1:0] fifo_data;
     logic fifo_rd_en;

@@ -34,8 +34,9 @@ module Ethernet_frame_gen (
 
     //CRC Generator
     //input logic [7:0] CRC32_crc[3:0],       //4 Bytes das hier vllt auch als 32 bit?
-    output logic [7:0] CRC32_data,
-    output logic CRC32_valid,
+
+    // output logic [7:0] CRC32_data,
+    // output logic CRC32_valid,
 
     output logic [7:0] tx_data,
     output logic tx_valid,
@@ -60,6 +61,8 @@ module Ethernet_frame_gen (
     parameter [31:0] init = 32'hffffffff;
 
     logic [31:0] CRC32_crc;
+    logic [7:0] CRC32_data;
+    logic CRC32_valid;
 
 
     CRC32 #(
@@ -310,7 +313,8 @@ module Ethernet_frame_gen (
                 CRC32_data = payload[(payload_length*8) - 1 - cnt_payload*8 -: 8];   //MSB first
                 //CRC32_data <= payload[cnt_payload];         //LSB first
                 if (cnt_payload == payload_length-1) begin
-                    next_state = ((14+payload_length)*8 < 512) ? PAD : FCS;
+                    // next_state = ((14+payload_length)*8 < 512) ? PAD : FCS;
+                    next_state = ((14+payload_length)*8 < 10) ? PAD : FCS; //for testing
                 end
                 else begin
                     next_state = PAYLOAD;
@@ -324,7 +328,8 @@ module Ethernet_frame_gen (
             PAD: begin               //Minimum frame Größe von 64 bytes sicherstellen
                 tx_data = 8'h00;
                 CRC32_data = 8'h00;
-                next_state = ((14 + payload_length + cnt_pad)*8 >= 512) ? FCS : PAD;
+                // next_state = ((14 + payload_length + cnt_pad)*8 >= 512) ? FCS : PAD;
+                next_state = ((14 + payload_length + cnt_pad)*8 >= 10) ? FCS : PAD;     //for testing
             end
 
             FCS: begin

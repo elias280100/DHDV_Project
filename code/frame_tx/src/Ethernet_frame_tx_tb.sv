@@ -58,8 +58,8 @@ Ethernet_frame_gen dut (
     .payload_length(payload_length),
     .payload(payload),
     //.CRC32_crc(tb_CRC32_crc),
-    .CRC32_data(tb_CRC32_data),
-    .CRC32_valid(tb_CRC32_valid),
+    // .CRC32_data(tb_CRC32_data),
+    // .CRC32_valid(tb_CRC32_valid),
     .tx_data(tb_tx_data),
     .tx_valid(tb_tx_valid),
     .frame_done(tb_frame_done)

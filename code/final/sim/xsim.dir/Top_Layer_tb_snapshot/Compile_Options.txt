@@ -1,0 +1,1 @@
+-debug "typical" -top "Top_Layer_tb" -snapshot "Top_Layer_tb_snapshot" 
