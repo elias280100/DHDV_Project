@@ -7,7 +7,7 @@ logic start;
 logic [47:0] MAC_dest_addr_in;      
 logic [47:0] MAC_source_addr_in;
 logic [15:0] ethernet_type_in;
-logic [100:0] payload_in;
+logic [11999:0] payload_in;
 logic [10:0] payload_length;
 
 
@@ -19,7 +19,7 @@ logic Check_done;
 logic [47:0] MAC_dest_addr_out;
 logic [47:0] MAC_source_addr_out;
 logic [15:0] ethernet_type_out;
-logic [100:0] payload_out;
+logic [11999:0] payload_out;
 
 initial
   begin

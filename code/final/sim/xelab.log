@@ -5,7 +5,9 @@ Running: /tools/Xilinx/Vivado/2024.2/bin/unwrapped/lnx64.o/xelab -debug typical 
 Multi-threading is on. Using 14 slave threads.
 Starting static elaboration
 Pass Through NonSizing Optimizer
-WARNING: [VRFC 10-3091] actual bit length 8 differs from formal bit length 11 for port 'fifo_used_memory' [/home/elias/Documents/2_Semester/DHDV/Projekt/DHDV_Project/code/final/src/Ethernet_frame_rx.sv:96]
+WARNING: [VRFC 10-3091] actual bit length 12000 differs from formal bit length 101 for port 'payload_out' [/home/elias/Documents/2_Semester/DHDV/Projekt/DHDV_Project/code/final/src/Top_Layer_tb.sv:64]
+WARNING: [VRFC 10-3091] actual bit length 101 differs from formal bit length 12000 for port 'payload' [/home/elias/Documents/2_Semester/DHDV/Projekt/DHDV_Project/code/final/src/Top_Layer.sv:62]
+WARNING: [VRFC 10-3091] actual bit length 8 differs from formal bit length 11 for port 'fifo_used_memory' [/home/elias/Documents/2_Semester/DHDV/Projekt/DHDV_Project/code/final/src/Ethernet_frame_rx.sv:68]
 Completed static elaboration
 Starting simulation data flow analysis
 Completed simulation data flow analysis

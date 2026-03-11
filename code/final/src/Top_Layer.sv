@@ -5,7 +5,7 @@ module Top_Layer (
     input logic [47:0] MAC_dest_addr_in,      
     input logic [47:0] MAC_source_addr_in,
     input logic [15:0] ethernet_type_in,
-    input logic [100:0] payload_in,
+    input logic [11999:0] payload_in,
     input logic [10:0] payload_length,
 
     
@@ -27,7 +27,7 @@ module Top_Layer (
     logic frame_done_tx;
 
     //Signals Rx
-    logic [7:0] rx_data_rx;      //wann logic und wann nicht?
+    logic [7:0] rx_data_rx;      
     logic rx_valid_rx;
 
 
@@ -62,22 +62,6 @@ module Top_Layer (
         .payload(payload_out)
     );
 
-    // always_ff @(posedge clk) begin
-    //     if (Check_done == 1'b1) begin
-    //         reset <= 1'b1;
-    //     end
-    //     else begin
-    //         reset <= 1'b0;
-    //     end
-    // end
-    // always_comb begin
-    //     if (Check_done == 1'b1) begin
-    //         reset = 1'b1;
-    //     end
-    //     else begin
-    //         reset = 1'b0;
-    //     end
-    // end
 
 endmodule
 
