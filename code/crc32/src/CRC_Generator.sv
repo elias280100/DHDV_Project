@@ -22,7 +22,6 @@ module CRC32 (
     always_ff @(posedge clk) begin
         if (reset) begin
             crc <= init;
-            
         end
         else begin
             if (valid) begin

@@ -1,3 +1,4 @@
+
 `timescale 1 ps / 1 ps
 typedef enum {
     IDLE, 
@@ -16,12 +17,12 @@ typedef enum {
     module Ethernet_frame_rx (
         input clk,
         input reset,
-        input logic [7:0] rx_data,      //wann logic und wann nicht?
+        input logic [7:0] rx_data,      
         input logic rx_valid,
   
         //output [7:0] CRC32_crc [3:0],
         //CRC Generator
-        //input logic [7:0] CRC32_crc[3:0],       //4 Bytes das hier vllt auch als 32 bit?
+        //input logic [7:0] CRC32_crc[3:0],       
         //input logic [31:0] CRC32_crc,
         // output logic [7:0] CRC32_data,
         // output logic CRC32_valid,
@@ -34,7 +35,7 @@ typedef enum {
         output logic [47:0] MAC_dest_addr,
         output logic [47:0] MAC_source_addr,
         output logic [15:0] ethernet_type,
-        output logic [100:0] payload 
+        output logic [100:0] payload            //100 bytes for testing
         // output logic [7:0] MAC_dest_addr [5:0],        //6 Bytes
         // output logic [7:0] MAC_source_addr [5:0],      //6 Bytes
         // output logic [7:0] ethernet_type [1:0],        //2 Bytes
@@ -72,11 +73,6 @@ typedef enum {
     // logic [11999:0] payload_test; 
 
     logic debug;
-
-    // assign MAC_source_addr_test = MAC_source_addr;
-    // //assign MAC_dest_addr_test = MAC_dest_addr;
-    // assign ethernet_type_test = ethernet_type;
-    // assign payload_test = payload;
 
     sync_fifo #(
         .DATA_WIDTH(DATA_WIDTH),
@@ -131,7 +127,6 @@ typedef enum {
 
     always_ff @(posedge clk) begin
         if (reset == 1'b1) begin
-            //state <= IDLE;
             cnt_ethernet_type <= 1'b0;
             cnt_fcs <= 2'b00;
             cnt_ipg <= 4'b0000;
@@ -141,7 +136,6 @@ typedef enum {
             cnt_payload <= 11'b00000000000;
             cnt_preamble <= 3'b000;
         end else begin
-            //state <= next_state;
             //counter PREAMBLE
             if (state == PREAMBLE) begin
                 if (rx_data == 8'hAA) begin      //muss das hier AA sein, wenn ich 55 hex sende?
@@ -153,10 +147,6 @@ typedef enum {
             end
             //counter MAC Dest
             if (state == MAC_DEST) begin
-                // CRC32_valid <= 1'b1;
-                // MAC_dest_addr[(47 - cnt_MAC_dest*8) -: 8] <= rx_data;
-                // //MAC_dest_addr[5 - cnt_MAC_dest] <= rx_data;
-                // CRC32_data <= rx_data;      //geht das so?
                 cnt_MAC_dest++;
             end
             else if (next_state == MAC_DEST) begin
@@ -164,9 +154,6 @@ typedef enum {
             end
             //counter MAC Source
             if (state == MAC_SOURCE) begin
-                // MAC_source_addr[(47 - cnt_MAC_source*8) -: 8] <= rx_data;
-                // //MAC_source_addr[5 - cnt_MAC_source] <= rx_data;
-                // CRC32_data <= rx_data;
                 cnt_MAC_source++;
             end
             else if (next_state == MAC_SOURCE) begin
@@ -174,25 +161,16 @@ typedef enum {
             end
             //counter TYPE
             if (state == TYPE) begin
-                // ethernet_type[(15 - cnt_ethernet_type*8) -: 8] <= rx_data;
-                // //ethernet_type[1 - cnt_ethernet_type] <= rx_data;
-                // CRC32_data <= rx_data;
                 cnt_ethernet_type++;
             end
             else if (next_state == TYPE) begin
                 cnt_ethernet_type <= 1'b0;
             end
             //counter PAYLOAD
-            if (state == PAYLOAD) begin
-                // length_payload_fcs <= fifo_used_memory;  
+            if (state == PAYLOAD) begin 
                 cnt_payload++;
                 CRC32_valid = 1'b1;
                 CRC32_data <= fifo_data;
-                // if (fifo_used_memory > 4) begin // dann solange Daten reinschreiben bis nur noch 4 bytes im fifo sind -> FCS
-                //         payload[(((length_payload_fcs-5)*8)-1) -: 8] <= fifo_data;
-                //         //payload[length_payload_fcs - 4] <= fifo_data; //muss ich hier überhaupt mit counter runterzählen? oder reicht length
-                //         CRC32_data <= fifo_data;
-                // end
                 
             end
             else if (next_state == PAYLOAD) begin
@@ -207,25 +185,16 @@ typedef enum {
             end
             //counter FCS
             if (state == FCS) begin
-                // length_payload_fcs <= fifo_used_memory;
-                // CRC32_data <= fifo_data;
                 cnt_fcs++;
 
             end
             else if (next_state == FCS) begin
                 cnt_fcs <= 2'b00;
             end
-            //FIFO
-            // if (state == FIFO) begin
-            //     fifo_wr_en <= 1'b1;
-            // end
-            // if (state == CHECK) begin
-            //     fifo_rd_en <= 1'b0;
-            // end
+            
         end
     end 
 
-    //welche signale in always_comb setzen und welche in always_ff?
 
     always_comb begin : FSM_ethernet_frame_rx
         case (state)
@@ -247,24 +216,20 @@ typedef enum {
             end
 
             MAC_DEST: begin                 
-                //CRC32_valid = 1'b1;
                 CRC32_valid = 1'b1;
                 MAC_dest_addr[(47 - cnt_MAC_dest*8) -: 8] = rx_data;
-                //MAC_dest_addr[5 - cnt_MAC_dest] <= rx_data;
-                CRC32_data = rx_data;      //geht das so?
+                CRC32_data = rx_data;      
                 next_state = (cnt_MAC_dest == 3'b101) ? MAC_SOURCE : MAC_DEST;
             end
 
             MAC_SOURCE: begin
                 MAC_source_addr[(47 - cnt_MAC_source*8) -: 8] = rx_data;
-                //MAC_source_addr[5 - cnt_MAC_source] <= rx_data;
                 CRC32_data = rx_data;
                 next_state = (cnt_MAC_source == 3'b101) ? TYPE : MAC_SOURCE;
             end
 
             TYPE: begin
                 ethernet_type[(15 - cnt_ethernet_type*8) -: 8] = rx_data;
-                //ethernet_type[1 - cnt_ethernet_type] <= rx_data;
                 CRC32_data = rx_data;
                 next_state = (cnt_ethernet_type == 1'b1) ? FIFO : TYPE;
             end
@@ -277,17 +242,12 @@ typedef enum {
 
 
             PAYLOAD: begin
-                //CRC32_valid = 1'b1;
                 fifo_wr_en = 1'b0;
-                fifo_rd_en = 1'b1;     //read enable
+                fifo_rd_en = 1'b1;     
                 length_payload_fcs = fifo_used_memory;
-                //if (fifo_used_memory > 3) begin // dann solange Daten reinschreiben bis nur noch 4 bytes im fifo sind -> FCS
-                    payload[(((length_payload_fcs-4)*8)-1) -: 8] = fifo_data;
-                    //payload[length_payload_fcs - 4] <= fifo_data; //muss ich hier überhaupt mit counter runterzählen? oder reicht length
-                    //CRC32_data = fifo_data;
-                //end
-                    //das hier nur einmal zuweisen, wenn keine neue Daten mehr ins fifo geschrieben werden und noch nicht gelesen wurde
                 
+                payload[(((length_payload_fcs-4)*8)-1) -: 8] = fifo_data;
+                    
                 next_state = (fifo_used_memory == 5) ? FCS : PAYLOAD;       
             end
 
@@ -297,7 +257,7 @@ typedef enum {
                 next_state = (fifo_empty == 1'b1) ? CHECK : FCS;
                 end
 
-            CHECK: begin            //das hier vllt auch alles in always_ff?
+            CHECK: begin            
                 fifo_rd_en = 1'b0;
                 CRC32_valid = 1'b0;
                 if (CRC32_crc == 0) begin
@@ -314,6 +274,16 @@ end
     
 
 endmodule
+
+
+                
+
+
+
+
+
+
+
 
                 
 

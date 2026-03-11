@@ -18,6 +18,7 @@ parameter FIFO_DEPTH  = 2048; // Parameterizable depth of FIFO RAM
         logic CRC32_valid;
         logic CRC32_error;
         logic CRC32_correct;
+        logic Check_done;
 
         logic [47:0] MAC_dest_addr;
         logic [47:0] MAC_source_addr;
@@ -65,6 +66,7 @@ Ethernet_frame_rx #(
     .ethernet_type(ethernet_type),
     .payload(payload),
     .CRC32_crc(CRC32_crc),
+    //.Check_done(Check_done),
     // .CRC32_data(CRC32_data),
     // .CRC32_valid(CRC32_valid),
     .CRC32_correct(CRC32_correct),

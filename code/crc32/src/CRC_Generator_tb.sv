@@ -9,9 +9,7 @@ parameter        CRC_SIZE   = 32;
 parameter        DATA_WIDTH = 8;
 
 parameter [31:0] init       = 32'hffffffff;
-//parameter        REF_IN     = 1;
-//parameter        REF_OUT    = 1;
-parameter [31:0] XOR_OUT    = 32'h00000000;
+parameter [31:0] final_crc    = 32'h00000000;
 
 logic                  clk;
 logic                  rst;
@@ -43,20 +41,15 @@ task automatic apply_reset;
 endtask
 
 CRC32 #(
-  .POLY         ( POLY       ),
-  //.CRC_SIZE     ( CRC_SIZE   ),
-  //.DATA_WIDTH   ( DATA_WIDTH ),
-  .init         ( init       ),
-  //.REF_IN       ( REF_IN     ),
-  //.REF_OUT      ( REF_OUT    ),
-  .final_crc      ( XOR_OUT    )
+  .POLY(POLY),
+  .init(init),
+  .final_crc(final_crc)
 ) DUT (
-  .clk        ( clk        ),
-  .reset        ( rst        ),
-  //.soft_reset_i ( 1'b0       ),
-  .valid      ( crc_en     ),
-  .data_in       ( data       ),
-  .crc_out        ( crc        )
+  .clk(clk),
+  .reset(rst),
+  .valid(crc_en),
+  .data_in(data),
+  .crc_out(crc)
 );
 
 //Wavefrom dump

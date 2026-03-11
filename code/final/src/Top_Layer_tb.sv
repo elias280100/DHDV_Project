@@ -93,12 +93,6 @@ initial
         MAC_dest_addr_in [15:8] <= 8'h35;
         MAC_dest_addr_in [7:0] <= 8'h35;
         
-        // MAC_dest[0] <= 8'h35;
-        // MAC_dest[1] <= 8'h35;
-        // MAC_dest[2] <= 8'h35;
-        // MAC_dest[3] <= 8'h35;
-        // MAC_dest[4] <= 8'h35;
-        // MAC_dest[5] <= 8'h35;
 
         MAC_source_addr_in [47:40] <= 8'h86;
         MAC_source_addr_in [39:32] <= 8'h86;
@@ -107,12 +101,6 @@ initial
         MAC_source_addr_in [15:8] <= 8'h86;
         MAC_source_addr_in [7:0] <= 8'h86;
 
-        // MAC_source[0] <= 8'h86;
-        // MAC_source[1] <= 8'h86;
-        // MAC_source[2] <= 8'h86;
-        // MAC_source[3] <= 8'h86;
-        // MAC_source[4] <= 8'h86;
-        // MAC_source[5] <= 8'h86;
 
         ethernet_type_in [15:8] <= 8'h27;
         ethernet_type_in [7:0] <= 8'h27;
@@ -125,10 +113,6 @@ initial
 
         payload_length <= 11'd5;
 
-        // tb_CRC32_crc[0] <= 8'h50;
-        // tb_CRC32_crc[1] <= 8'h50;
-        // tb_CRC32_crc[2] <= 8'h50;
-        // tb_CRC32_crc[3] <= 8'h50;
 
         @( posedge clk );
         start <= 1'b1;
