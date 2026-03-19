@@ -86,30 +86,53 @@ initial
         repeat( 10 )
         @( posedge clk );
 
-        MAC_dest_addr_in [47:40] <= 8'h35;
-        MAC_dest_addr_in [39:32] <= 8'h35;
-        MAC_dest_addr_in [31:24] <= 8'h35;
-        MAC_dest_addr_in [23:16] <= 8'h35;
-        MAC_dest_addr_in [15:8] <= 8'h35;
-        MAC_dest_addr_in [7:0] <= 8'h35;
+        // MAC_dest_addr_in [47:40] <= 8'h35;
+        // MAC_dest_addr_in [39:32] <= 8'h35;
+        // MAC_dest_addr_in [31:24] <= 8'h35;
+        // MAC_dest_addr_in [23:16] <= 8'h35;
+        // MAC_dest_addr_in [15:8] <= 8'h35;
+        // MAC_dest_addr_in [7:0] <= 8'h35;
+
+        MAC_dest_addr_in[47:40] <= $urandom_range(8'hFF, 8'h00);
+        MAC_dest_addr_in[39:32] <= $urandom_range(8'hFF, 8'h00);
+        MAC_dest_addr_in[31:24] <= $urandom_range(8'hFF, 8'h00);
+        MAC_dest_addr_in[23:16] <= $urandom_range(8'hFF, 8'h00);
+        MAC_dest_addr_in[15:8]  <= $urandom_range(8'hFF, 8'h00);
+        MAC_dest_addr_in[7:0]   <= $urandom_range(8'hFF, 8'h00);
         
 
-        MAC_source_addr_in [47:40] <= 8'h86;
-        MAC_source_addr_in [39:32] <= 8'h86;
-        MAC_source_addr_in [31:24] <= 8'h86;
-        MAC_source_addr_in [23:16] <= 8'h86;
-        MAC_source_addr_in [15:8] <= 8'h86;
-        MAC_source_addr_in [7:0] <= 8'h86;
+        // MAC_source_addr_in [47:40] <= 8'h86;
+        // MAC_source_addr_in [39:32] <= 8'h86;
+        // MAC_source_addr_in [31:24] <= 8'h86;
+        // MAC_source_addr_in [23:16] <= 8'h86;
+        // MAC_source_addr_in [15:8] <= 8'h86;
+        // MAC_source_addr_in [7:0] <= 8'h86;
+
+        MAC_source_addr_in[47:40] <= $urandom_range(8'hFF, 8'h00);
+        MAC_source_addr_in[39:32] <= $urandom_range(8'hFF, 8'h00);
+        MAC_source_addr_in[31:24] <= $urandom_range(8'hFF, 8'h00);
+        MAC_source_addr_in[23:16] <= $urandom_range(8'hFF, 8'h00);
+        MAC_source_addr_in[15:8]  <= $urandom_range(8'hFF, 8'h00);
+        MAC_source_addr_in[7:0]   <= $urandom_range(8'hFF, 8'h00);
 
 
-        ethernet_type_in [15:8] <= 8'h27;
-        ethernet_type_in [7:0] <= 8'h27;
+        // ethernet_type_in [15:8] <= 8'h27;
+        // ethernet_type_in [7:0] <= 8'h27;
 
-        payload_in[39:32] <= 8'h42;
-        payload_in[31:24] <= 8'h42;
-        payload_in[23:16] <= 8'h42;
-        payload_in[15:8] <= 8'h42;
-        payload_in[7:0] <= 8'h42;
+        ethernet_type_in [15:8] <= $urandom_range(8'hFF, 8'h00);
+        ethernet_type_in [7:0]  <= $urandom_range(8'hFF, 8'h00);
+
+        // payload_in[39:32] <= 8'h42;
+        // payload_in[31:24] <= 8'h42;
+        // payload_in[23:16] <= 8'h42;
+        // payload_in[15:8] <= 8'h42;
+        // payload_in[7:0] <= 8'h42;
+
+        payload_in[39:32] <= $urandom_range(8'hFF, 8'h00);
+        payload_in[31:24] <= $urandom_range(8'hFF, 8'h00);
+        payload_in[23:16] <= $urandom_range(8'hFF, 8'h00);
+        payload_in[15:8]  <= $urandom_range(8'hFF, 8'h00);
+        payload_in[7:0]   <= $urandom_range(8'hFF, 8'h00);
 
         payload_length <= 11'd5;
 

@@ -150,8 +150,8 @@ typedef enum {
             //counter PAYLOAD
             if (state == PAYLOAD) begin 
                 cnt_payload++;
-                CRC32_valid = 1'b1;
-                CRC32_data <= fifo_data;
+                CRC32_valid <= 1'b1;                //geändert
+                //CRC32_data <= fifo_data;
             end
             else if (next_state == PAYLOAD) begin
                 cnt_payload <= 11'b00000000000;
@@ -228,6 +228,7 @@ typedef enum {
                 fifo_rd_en = 1'b1;     //read enable
                 length_payload_fcs = fifo_used_memory;
                 payload[(((length_payload_fcs-4)*8)-1) -: 8] = fifo_data;   //read data from FIFO and store it into payload array
+                CRC32_data = fifo_data;
                 next_state = (fifo_used_memory == 5) ? FCS : PAYLOAD;       //next state if only 4 Bytes are left in FIFO -> FCS  
             end
 
