@@ -18,7 +18,7 @@ module CRC32 (
     parameter bit [31:0] final_crc = 32'h00000000;
     parameter bit [31:0] init= 32'hffffffff;
     
-
+    //reset register crc 
     always_ff @(posedge clk) begin
         if (reset) begin
             crc <= init;

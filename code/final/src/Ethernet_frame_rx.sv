@@ -17,12 +17,12 @@ typedef enum {
         input clk,
         input reset,
         input logic [7:0] rx_data,          //8 Bit data    
-        input logic rx_valid,
+        input logic rx_valid,               //received data is valid
   
-        output logic CRC32_error,
-        output logic CRC32_correct,
+        output logic CRC32_error,           //final CRC32 not equal to 0, transmission/reception failed
+        output logic CRC32_correct,         //final CRC32 is equal to 0, successful
         output logic [31:0] CRC32_crc,      //32 Bit CRC
-        output logic Check_done,
+        output logic Check_done,            //CRC32 check completed 
 
         output logic [47:0] MAC_dest_addr,      //6 Bytes MAC Destination
         output logic [47:0] MAC_source_addr,    //6 Bytes MAC Source
@@ -40,7 +40,7 @@ typedef enum {
 
     //CRC32
     logic [7:0] CRC32_data;                 //8 Bit data for CRC
-    logic CRC32_valid;
+    logic CRC32_valid;                      //CRC32 data is valid
     
     //FIFO
     logic [DATA_WIDTH-1:0] fifo_data;           
@@ -150,7 +150,7 @@ typedef enum {
             //counter PAYLOAD
             if (state == PAYLOAD) begin 
                 cnt_payload++;
-                CRC32_valid <= 1'b1;                //geändert
+                CRC32_valid <= 1'b1;                
                 //CRC32_data <= fifo_data;
             end
             else if (next_state == PAYLOAD) begin

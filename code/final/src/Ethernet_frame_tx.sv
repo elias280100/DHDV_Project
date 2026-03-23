@@ -26,7 +26,7 @@ module Ethernet_frame_gen (
     input logic [10:0] payload_length,      //11 Bytes -> max. payload length of 2048 Bytes
 
     output logic [7:0] tx_data,             //transmit 8 Bytes
-    output logic tx_valid,
+    output logic tx_valid,                  //transmitted data is valid
     output logic frame_done
 
 ); 
@@ -47,9 +47,9 @@ module Ethernet_frame_gen (
     parameter [31:0] final_crc = 32'h00000000;
     parameter [31:0] init = 32'hffffffff;
 
-    logic [31:0] CRC32_crc;
-    logic [7:0] CRC32_data;
-    logic CRC32_valid;
+    logic [31:0] CRC32_crc;         //CRC32 data
+    logic [7:0] CRC32_data;         //data for CRC32
+    logic CRC32_valid;              //data valid for CRC32
 
     //Instantiate CRC32
     CRC32 #(
