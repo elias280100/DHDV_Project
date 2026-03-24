@@ -100,11 +100,11 @@ module Ethernet_frame_gen (
             end 
             else begin
                 //IDLE
-                if (state == IDLE) begin
-                    tx_data <= 8'd0;
-                    frame_done <= 1'b0;
-                    CRC32_valid <= 1'b0;
-                end
+                // if (state == IDLE) begin
+                //     tx_data <= 8'd0;
+                //     frame_done <= 1'b0;
+                //     CRC32_valid <= 1'b0;
+                // end
                 //counter PREAMBLE
                 if (state == PREAMBLE) begin
                     cnt_preamble++;
@@ -171,6 +171,9 @@ module Ethernet_frame_gen (
     always_comb begin : FSM_ethernet_frame_tx
         case (state)
             IDLE: begin
+                tx_data <= 8'd0;
+                frame_done <= 1'b0;
+                CRC32_valid <= 1'b0;
                 
                 next_state = (start == 1'b1) ? PREAMBLE : IDLE;
             end

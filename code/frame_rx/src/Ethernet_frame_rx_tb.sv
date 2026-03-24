@@ -124,33 +124,33 @@ Ethernet_frame_rx #(
         rx_data <= 8'h40;
         //MAC SOURCE
         @( posedge clk );
-        rx_data <= 8'h86;
+        rx_data <= 8'h50;
         @( posedge clk );
-        rx_data <= 8'h86;
+        rx_data <= 8'h51;
         @( posedge clk );
-        rx_data <= 8'h86;
+        rx_data <= 8'h52;
         @( posedge clk );
-        rx_data <= 8'h86;
+        rx_data <= 8'h53;
         @( posedge clk );
-        rx_data <= 8'h86;
+        rx_data <= 8'h54;
         @( posedge clk );
-        rx_data <= 8'h86;
+        rx_data <= 8'h55;
         //TYPE
         @( posedge clk );
-        rx_data <= 8'h27;
+        rx_data <= 8'h56;
         @( posedge clk );
-        rx_data <= 8'h27;
+        rx_data <= 8'h57;
         //PAYLOAD
         @( posedge clk );
-        rx_data <= 8'h42;
+        rx_data <= 8'h60;
         @( posedge clk );
-        rx_data <= 8'h42;
+        rx_data <= 8'h61;
         @( posedge clk );
-        rx_data <= 8'h42;
+        rx_data <= 8'h62;
         @( posedge clk );
-        rx_data <= 8'h42;
+        rx_data <= 8'h63;
         @( posedge clk );
-        rx_data <= 8'h42;
+        rx_data <= 8'h64;
         //PAD
         // @( posedge clk );
         // rx_data <= 8'h00;
@@ -270,13 +270,13 @@ Ethernet_frame_rx #(
         // rx_data <= 8'hE5;
         //FCS
         @( posedge clk );
-        rx_data <= 8'hE7;
+        rx_data <= 8'hE4;
         @( posedge clk );
-        rx_data <= 8'h60;
+        rx_data <= 8'h3B;
         @( posedge clk );
-        rx_data <= 8'h0D;
+        rx_data <= 8'hA3;
         @( posedge clk );
-        rx_data <= 8'h97;
+        rx_data <= 8'h48;
         //@( posedge clk );
         // @( posedge clk );
         rx_valid <= 1'b0;

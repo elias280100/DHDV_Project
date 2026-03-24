@@ -84,25 +84,39 @@ Ethernet_frame_gen dut (
         @( posedge clk );
 
         MAC_dest[47:40] <= 8'h35;
-        MAC_dest[39:32] <= 8'h35;
-        MAC_dest [31:24] <= 8'h35;
-        MAC_dest [23:16] <= 8'h35;
-        MAC_dest [15:8] <= 8'h35;
-        MAC_dest [7:0] <= 8'h35;
-        
-        // MAC_dest[0] <= 8'h35;
-        // MAC_dest[1] <= 8'h35;
-        // MAC_dest[2] <= 8'h35;
-        // MAC_dest[3] <= 8'h35;
-        // MAC_dest[4] <= 8'h35;
-        // MAC_dest[5] <= 8'h35;
+        MAC_dest[39:32] <= 8'h36;
+        MAC_dest [31:24] <= 8'h37;
+        MAC_dest [23:16] <= 8'h38;
+        MAC_dest [15:8] <= 8'h39;
+        MAC_dest [7:0] <= 8'h40;
 
-        MAC_source[47:40] <= 8'h86;
-        MAC_source[39:32] <= 8'h86;
-        MAC_source [31:24] <= 8'h86;
-        MAC_source [23:16] <= 8'h86;
-        MAC_source [15:8] <= 8'h86;
-        MAC_source [7:0] <= 8'h86;
+        // MAC_dest[47:40] <= $urandom_range(8'hFF, 8'h00);
+        // MAC_dest[39:32] <= $urandom_range(8'hFF, 8'h00);
+        // MAC_dest[31:24] <= $urandom_range(8'hFF, 8'h00);
+        // MAC_dest[23:16] <= $urandom_range(8'hFF, 8'h00);
+        // MAC_dest[15:8]  <= $urandom_range(8'hFF, 8'h00);
+        // MAC_dest[7:0]   <= $urandom_range(8'hFF, 8'h00);
+        
+        // MAC_dest[0] <= 8'h41;
+        // MAC_dest[1] <= 8'h42;
+        // MAC_dest[2] <= 8'h43;
+        // MAC_dest[3] <= 8'h44;
+        // MAC_dest[4] <= 8'h45;
+        // MAC_dest[5] <= 8'h46;
+
+        MAC_source[47:40] <= 8'h50;
+        MAC_source[39:32] <= 8'h51;
+        MAC_source [31:24] <= 8'h52;
+        MAC_source [23:16] <= 8'h53;
+        MAC_source [15:8] <= 8'h54;
+        MAC_source [7:0] <= 8'h55;
+
+        // MAC_source[47:40] <= $urandom_range(8'hFF, 8'h00);
+        // MAC_source[39:32] <= $urandom_range(8'hFF, 8'h00);
+        // MAC_source[31:24] <= $urandom_range(8'hFF, 8'h00);
+        // MAC_source[23:16] <= $urandom_range(8'hFF, 8'h00);
+        // MAC_source[15:8]  <= $urandom_range(8'hFF, 8'h00);
+        // MAC_source[7:0]   <= $urandom_range(8'hFF, 8'h00);
 
         // MAC_source[0] <= 8'h86;
         // MAC_source[1] <= 8'h86;
@@ -111,14 +125,24 @@ Ethernet_frame_gen dut (
         // MAC_source[4] <= 8'h86;
         // MAC_source[5] <= 8'h86;
 
-        ethernet_type[15:8] <= 8'h27;
-        ethernet_type[7:0] <= 8'h27;
 
-        payload[39:32] <= 8'h42;
-        payload[31:24] <= 8'h42;
-        payload[23:16] <= 8'h42;
-        payload[15:8] <= 8'h42;
-        payload[7:0] <= 8'h42;
+        // ethernet_type[15:8] <= $urandom_range(8'hFF, 8'h00);
+        // ethernet_type[7:0] <= $urandom_range(8'hFF, 8'h00);
+
+        ethernet_type[15:8] <= 8'h56;
+        ethernet_type[7:0] <= 8'h57;
+
+        payload[39:32] <= 8'h60;
+        payload[31:24] <= 8'h61;
+        payload[23:16] <= 8'h62;
+        payload[15:8] <= 8'h63;
+        payload[7:0] <= 8'h64;
+
+        // payload[39:32] <= $urandom_range(8'hFF, 8'h00);
+        // payload[31:24] <= $urandom_range(8'hFF, 8'h00);
+        // payload[23:16] <= $urandom_range(8'hFF, 8'h00);
+        // payload[15:8]  <= $urandom_range(8'hFF, 8'h00);
+        // payload[7:0]   <= $urandom_range(8'hFF, 8'h00);
 
         payload_length <= 11'd5;
 
