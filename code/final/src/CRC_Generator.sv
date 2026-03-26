@@ -32,7 +32,7 @@ module CRC32 (
     end
 
 
-    assign crc_out = crc ^ final_crc;           
+    assign crc_out = crc ^ final_crc;      //final xor     
 
     generate;
         always_comb begin

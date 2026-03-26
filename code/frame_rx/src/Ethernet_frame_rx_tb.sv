@@ -269,6 +269,7 @@ Ethernet_frame_rx #(
         // @( posedge clk );
         // rx_data <= 8'hE5;
         //FCS
+        //FCS of the previous bytes
         @( posedge clk );
         rx_data <= 8'hE4;
         @( posedge clk );

@@ -10,15 +10,9 @@ logic [47:0] MAC_dest;
 logic [47:0] MAC_source;
 logic [15:0] ethernet_type;
 logic [11999:0] payload;
-// logic [7:0] MAC_dest [5:0];
-// logic [7:0] MAC_source [5:0];
-// logic [7:0] ethernet_type [1:0];
-logic [10:0] payload_length;
-// logic [7:0] payload [1499:0];
 
-// logic [7:0] tb_CRC32_crc[3:0];
-// logic [7:0] tb_CRC32_data;
-// logic tb_CRC32_valid;
+logic [10:0] payload_length;
+
 
 logic [7:0] tb_tx_data;
 logic tb_tx_valid;
@@ -97,12 +91,6 @@ Ethernet_frame_gen dut (
         // MAC_dest[15:8]  <= $urandom_range(8'hFF, 8'h00);
         // MAC_dest[7:0]   <= $urandom_range(8'hFF, 8'h00);
         
-        // MAC_dest[0] <= 8'h41;
-        // MAC_dest[1] <= 8'h42;
-        // MAC_dest[2] <= 8'h43;
-        // MAC_dest[3] <= 8'h44;
-        // MAC_dest[4] <= 8'h45;
-        // MAC_dest[5] <= 8'h46;
 
         MAC_source[47:40] <= 8'h50;
         MAC_source[39:32] <= 8'h51;
@@ -117,13 +105,6 @@ Ethernet_frame_gen dut (
         // MAC_source[23:16] <= $urandom_range(8'hFF, 8'h00);
         // MAC_source[15:8]  <= $urandom_range(8'hFF, 8'h00);
         // MAC_source[7:0]   <= $urandom_range(8'hFF, 8'h00);
-
-        // MAC_source[0] <= 8'h86;
-        // MAC_source[1] <= 8'h86;
-        // MAC_source[2] <= 8'h86;
-        // MAC_source[3] <= 8'h86;
-        // MAC_source[4] <= 8'h86;
-        // MAC_source[5] <= 8'h86;
 
 
         // ethernet_type[15:8] <= $urandom_range(8'hFF, 8'h00);
@@ -145,11 +126,6 @@ Ethernet_frame_gen dut (
         // payload[7:0]   <= $urandom_range(8'hFF, 8'h00);
 
         payload_length <= 11'd5;
-
-        // tb_CRC32_crc[0] <= 8'h50;
-        // tb_CRC32_crc[1] <= 8'h50;
-        // tb_CRC32_crc[2] <= 8'h50;
-        // tb_CRC32_crc[3] <= 8'h50;
 
         @( posedge clk );
         start <= 1'b1;

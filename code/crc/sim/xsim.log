@@ -1,0 +1,389 @@
+#-----------------------------------------------------------
+# xsim v2024.2 (64-bit)
+# SW Build 5239630 on Fri Nov 08 22:34:34 MST 2024
+# IP Build 5239520 on Sun Nov 10 16:12:51 MST 2024
+# SharedData Build 5239561 on Fri Nov 08 14:39:27 MST 2024
+# Start of session at: Thu Mar 26 09:46:31 2026
+# Process ID         : 215396
+# Current directory  : /home/elias/Documents/2_Semester/DHDV/Projekt/DHDV_Project/code/crc/sim
+# Command line       : xsim -mode tcl -source {xsim.dir/tb_snapshot/xsim_script.tcl}
+# Log file           : /home/elias/Documents/2_Semester/DHDV/Projekt/DHDV_Project/code/crc/sim/xsim.log
+# Journal file       : /home/elias/Documents/2_Semester/DHDV/Projekt/DHDV_Project/code/crc/sim/xsim.jou
+# Running On         : elias-ThinkPad-E14-Gen-6
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 24.04.4 LTS
+# Processor Detail   : AMD Ryzen 7 7735HS with Radeon Graphics
+# CPU Frequency      : 4645.236 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 32340 MB
+# Swap memory        : 8589 MB
+# Total Virtual      : 40930 MB
+# Available Virtual  : 33824 MB
+#-----------------------------------------------------------
+source xsim.dir/tb_snapshot/xsim_script.tcl
+# xsim {tb_snapshot} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+T=0 [Driver] starting ...
+T=0 [Driver] waiting for item ...
+T=0 [Monitor] starting ...
+T=0 [Generator] Loop:1/50 create next item
+T=0 [Generator] Wait for driver to be done
+T=10000 data=0xf2 crc=0x0
+T=10000 [Driver] waiting for item ...
+T=10000 [Generator] Loop:2/50 create next item
+T=10000 [Generator] Wait for driver to be done
+T=11000 data=0xf2 crc=0x0
+T=11000 data=0xf2 crc=0x0
+crc = 0
+T=30000 data=0xce crc=0x0
+T=30000 [Driver] waiting for item ...
+T=30000 [Generator] Loop:3/50 create next item
+T=30000 [Generator] Wait for driver to be done
+T=31000 data=0xce crc=0x0
+T=31000 data=0xce crc=0x0
+crc = 0
+T=50000 data=0xc5 crc=0x0
+T=50000 [Driver] waiting for item ...
+T=50000 [Generator] Loop:4/50 create next item
+T=50000 [Generator] Wait for driver to be done
+T=51000 data=0xc5 crc=0x0
+T=51000 data=0xc5 crc=0x0
+crc = 0
+T=70000 data=0x9 crc=0x0
+T=70000 [Driver] waiting for item ...
+T=70000 [Generator] Loop:5/50 create next item
+T=70000 [Generator] Wait for driver to be done
+T=71000 data=0x9 crc=0xffffffff
+T=71000 data=0x9 crc=0xffffffff
+crc = ffffffff
+T=90000 data=0x60 crc=0x0
+T=90000 [Driver] waiting for item ...
+T=90000 [Generator] Loop:6/50 create next item
+T=90000 [Generator] Wait for driver to be done
+T=91000 data=0x60 crc=0xffffffff
+T=91000 data=0x60 crc=0xffffffff
+crc = ffffffff
+T=110000 data=0x49 crc=0x0
+T=110000 [Driver] waiting for item ...
+T=110000 [Generator] Loop:7/50 create next item
+T=110000 [Generator] Wait for driver to be done
+T=111000 data=0x49 crc=0xffffffff
+T=111000 data=0x49 crc=0xffffffff
+crc = ffffffff
+T=130000 data=0x89 crc=0x0
+T=130000 [Driver] waiting for item ...
+T=130000 [Generator] Loop:8/50 create next item
+T=130000 [Generator] Wait for driver to be done
+T=131000 data=0x89 crc=0xffffffff
+T=131000 data=0x89 crc=0xffffffff
+crc = ffffffff
+T=150000 data=0xad crc=0x0
+T=150000 [Driver] waiting for item ...
+T=150000 [Generator] Loop:9/50 create next item
+T=150000 [Generator] Wait for driver to be done
+T=151000 data=0xad crc=0x5cdaf55
+T=151000 data=0xad crc=0x5cdaf55
+crc = 5cdaf55
+T=170000 data=0xeb crc=0x0
+T=170000 [Driver] waiting for item ...
+T=170000 [Generator] Loop:10/50 create next item
+T=170000 [Generator] Wait for driver to be done
+T=171000 data=0xeb crc=0xffffffff
+T=171000 data=0xeb crc=0xffffffff
+crc = ffffffff
+T=190000 data=0x4b crc=0x0
+T=190000 [Driver] waiting for item ...
+T=190000 [Generator] Loop:11/50 create next item
+T=190000 [Generator] Wait for driver to be done
+T=191000 data=0x4b crc=0xa0ea52ac
+T=191000 data=0x4b crc=0xa0ea52ac
+crc = a0ea52ac
+T=210000 data=0x16 crc=0x0
+T=210000 [Driver] waiting for item ...
+T=210000 [Generator] Loop:12/50 create next item
+T=210000 [Generator] Wait for driver to be done
+T=211000 data=0x16 crc=0xffffffff
+T=211000 data=0x16 crc=0xffffffff
+crc = ffffffff
+T=230000 data=0x94 crc=0x0
+T=230000 [Driver] waiting for item ...
+T=230000 [Generator] Loop:13/50 create next item
+T=230000 [Generator] Wait for driver to be done
+T=231000 data=0x94 crc=0x189f2976
+T=231000 data=0x94 crc=0x189f2976
+crc = 189f2976
+T=250000 data=0xee crc=0x0
+T=250000 [Driver] waiting for item ...
+T=250000 [Generator] Loop:14/50 create next item
+T=250000 [Generator] Wait for driver to be done
+T=251000 data=0xee crc=0xffffffff
+T=251000 data=0xee crc=0xffffffff
+crc = ffffffff
+T=270000 data=0x9c crc=0x0
+T=270000 [Driver] waiting for item ...
+T=270000 [Generator] Loop:15/50 create next item
+T=270000 [Generator] Wait for driver to be done
+T=271000 data=0x9c crc=0xb72f39c7
+T=271000 data=0x9c crc=0xb72f39c7
+crc = b72f39c7
+T=290000 data=0xa2 crc=0x0
+T=290000 [Driver] waiting for item ...
+T=290000 [Generator] Loop:16/50 create next item
+T=290000 [Generator] Wait for driver to be done
+T=291000 data=0xa2 crc=0x9c51ba81
+T=291000 data=0xa2 crc=0x9c51ba81
+crc = 9c51ba81
+T=310000 data=0xc4 crc=0x0
+T=310000 [Driver] waiting for item ...
+T=310000 [Generator] Loop:17/50 create next item
+T=310000 [Generator] Wait for driver to be done
+T=311000 data=0xc4 crc=0xb9064c9a
+T=311000 data=0xc4 crc=0xb9064c9a
+crc = b9064c9a
+T=330000 data=0x67 crc=0x0
+T=330000 [Driver] waiting for item ...
+T=330000 [Generator] Loop:18/50 create next item
+T=330000 [Generator] Wait for driver to be done
+T=331000 data=0x67 crc=0xffffffff
+T=331000 data=0x67 crc=0xffffffff
+crc = ffffffff
+T=350000 data=0xa5 crc=0x0
+T=350000 [Driver] waiting for item ...
+T=350000 [Generator] Loop:19/50 create next item
+T=350000 [Generator] Wait for driver to be done
+T=351000 data=0xa5 crc=0xfcea2926
+T=351000 data=0xa5 crc=0xfcea2926
+crc = fcea2926
+T=370000 data=0xc3 crc=0x0
+T=370000 [Driver] waiting for item ...
+T=370000 [Generator] Loop:20/50 create next item
+T=370000 [Generator] Wait for driver to be done
+T=371000 data=0xc3 crc=0xb0777d08
+T=371000 data=0xc3 crc=0xb0777d08
+crc = b0777d08
+T=390000 data=0xaf crc=0x0
+T=390000 [Driver] waiting for item ...
+T=390000 [Generator] Loop:21/50 create next item
+T=390000 [Generator] Wait for driver to be done
+T=391000 data=0xaf crc=0xffffffff
+T=391000 data=0xaf crc=0xffffffff
+crc = ffffffff
+T=410000 data=0x54 crc=0x0
+T=410000 [Driver] waiting for item ...
+T=410000 [Generator] Loop:22/50 create next item
+T=410000 [Generator] Wait for driver to be done
+T=411000 data=0x54 crc=0xffffffff
+T=411000 data=0x54 crc=0xffffffff
+crc = ffffffff
+T=430000 data=0xbb crc=0x0
+T=430000 [Driver] waiting for item ...
+T=430000 [Generator] Loop:23/50 create next item
+T=430000 [Generator] Wait for driver to be done
+T=431000 data=0xbb crc=0xffffffff
+T=431000 data=0xbb crc=0xffffffff
+crc = ffffffff
+T=450000 data=0xf0 crc=0x0
+T=450000 [Driver] waiting for item ...
+T=450000 [Generator] Loop:24/50 create next item
+T=450000 [Generator] Wait for driver to be done
+T=451000 data=0xf0 crc=0xd87df9ab
+T=451000 data=0xf0 crc=0xd87df9ab
+crc = d87df9ab
+T=470000 data=0xd6 crc=0x0
+T=470000 [Driver] waiting for item ...
+T=470000 [Generator] Loop:25/50 create next item
+T=470000 [Generator] Wait for driver to be done
+T=471000 data=0xd6 crc=0xffffffff
+T=471000 data=0xd6 crc=0xffffffff
+crc = ffffffff
+T=490000 data=0x37 crc=0x0
+T=490000 [Driver] waiting for item ...
+T=490000 [Generator] Loop:26/50 create next item
+T=490000 [Generator] Wait for driver to be done
+T=491000 data=0x37 crc=0x4515b9ef
+T=491000 data=0x37 crc=0x4515b9ef
+crc = 4515b9ef
+T=510000 data=0xfc crc=0x0
+T=510000 [Driver] waiting for item ...
+T=510000 [Generator] Loop:27/50 create next item
+T=510000 [Generator] Wait for driver to be done
+T=511000 data=0xfc crc=0xffffffff
+T=511000 data=0xfc crc=0xffffffff
+crc = ffffffff
+T=530000 data=0x3b crc=0x0
+T=530000 [Driver] waiting for item ...
+T=530000 [Generator] Loop:28/50 create next item
+T=530000 [Generator] Wait for driver to be done
+T=531000 data=0x3b crc=0xf2bcd9d9
+T=531000 data=0x3b crc=0xf2bcd9d9
+crc = f2bcd9d9
+T=550000 data=0xb8 crc=0x0
+T=550000 [Driver] waiting for item ...
+T=550000 [Generator] Loop:29/50 create next item
+T=550000 [Generator] Wait for driver to be done
+T=551000 data=0xb8 crc=0xffffffff
+T=551000 data=0xb8 crc=0xffffffff
+crc = ffffffff
+T=570000 data=0x89 crc=0x0
+T=570000 [Driver] waiting for item ...
+T=570000 [Generator] Loop:30/50 create next item
+T=570000 [Generator] Wait for driver to be done
+T=571000 data=0x89 crc=0xffffffff
+T=571000 data=0x89 crc=0xffffffff
+crc = ffffffff
+T=590000 data=0x91 crc=0x0
+T=590000 [Driver] waiting for item ...
+T=590000 [Generator] Loop:31/50 create next item
+T=590000 [Generator] Wait for driver to be done
+T=591000 data=0x91 crc=0x5cdaf55
+T=591000 data=0x91 crc=0x5cdaf55
+crc = 5cdaf55
+T=610000 data=0xdc crc=0x0
+T=610000 [Driver] waiting for item ...
+T=610000 [Generator] Loop:32/50 create next item
+T=610000 [Generator] Wait for driver to be done
+T=611000 data=0xdc crc=0xffffffff
+T=611000 data=0xdc crc=0xffffffff
+crc = ffffffff
+T=630000 data=0x7e crc=0x0
+T=630000 [Driver] waiting for item ...
+T=630000 [Generator] Loop:33/50 create next item
+T=630000 [Generator] Wait for driver to be done
+T=631000 data=0x7e crc=0x6a9f6f39
+T=631000 data=0x7e crc=0x6a9f6f39
+crc = 6a9f6f39
+T=650000 data=0xd6 crc=0x0
+T=650000 [Driver] waiting for item ...
+T=650000 [Generator] Loop:34/50 create next item
+T=650000 [Generator] Wait for driver to be done
+T=651000 data=0xd6 crc=0xffffffff
+T=651000 data=0xd6 crc=0xffffffff
+crc = ffffffff
+T=670000 data=0x6a crc=0x0
+T=670000 [Driver] waiting for item ...
+T=670000 [Generator] Loop:35/50 create next item
+T=670000 [Generator] Wait for driver to be done
+T=671000 data=0x6a crc=0x4515b9ef
+T=671000 data=0x6a crc=0x4515b9ef
+crc = 4515b9ef
+T=690000 data=0x90 crc=0x0
+T=690000 [Driver] waiting for item ...
+T=690000 [Generator] Loop:36/50 create next item
+T=690000 [Generator] Wait for driver to be done
+T=691000 data=0x90 crc=0xffffffff
+T=691000 data=0x90 crc=0xffffffff
+crc = ffffffff
+T=710000 data=0xca crc=0x0
+T=710000 [Driver] waiting for item ...
+T=710000 [Generator] Loop:37/50 create next item
+T=710000 [Generator] Wait for driver to be done
+T=711000 data=0xca crc=0xffffffff
+T=711000 data=0xca crc=0xffffffff
+crc = ffffffff
+T=730000 data=0x2b crc=0x0
+T=730000 [Driver] waiting for item ...
+T=730000 [Generator] Loop:38/50 create next item
+T=730000 [Generator] Wait for driver to be done
+T=731000 data=0x2b crc=0xffffffff
+T=731000 data=0x2b crc=0xffffffff
+crc = ffffffff
+T=750000 data=0x95 crc=0x0
+T=750000 [Driver] waiting for item ...
+T=750000 [Generator] Loop:39/50 create next item
+T=750000 [Generator] Wait for driver to be done
+T=751000 data=0x95 crc=0xffffffff
+T=751000 data=0x95 crc=0xffffffff
+crc = ffffffff
+T=770000 data=0x81 crc=0x0
+T=770000 [Driver] waiting for item ...
+T=770000 [Generator] Loop:40/50 create next item
+T=770000 [Generator] Wait for driver to be done
+T=771000 data=0x81 crc=0x7cd0ef41
+T=771000 data=0x81 crc=0x7cd0ef41
+crc = 7cd0ef41
+T=790000 data=0x97 crc=0x0
+T=790000 [Driver] waiting for item ...
+T=790000 [Generator] Loop:41/50 create next item
+T=790000 [Generator] Wait for driver to be done
+T=791000 data=0x97 crc=0x689a3ada
+T=791000 data=0x97 crc=0x689a3ada
+crc = 689a3ada
+T=810000 data=0x48 crc=0x0
+T=810000 [Driver] waiting for item ...
+T=810000 [Generator] Loop:42/50 create next item
+T=810000 [Generator] Wait for driver to be done
+T=811000 data=0x48 crc=0xffffffff
+T=811000 data=0x48 crc=0xffffffff
+crc = ffffffff
+T=830000 data=0x81 crc=0x0
+T=830000 [Driver] waiting for item ...
+T=830000 [Generator] Loop:43/50 create next item
+T=830000 [Generator] Wait for driver to be done
+T=831000 data=0x81 crc=0xffffffff
+T=831000 data=0x81 crc=0xffffffff
+crc = ffffffff
+T=850000 data=0x8d crc=0x0
+T=850000 [Driver] waiting for item ...
+T=850000 [Generator] Loop:44/50 create next item
+T=850000 [Generator] Wait for driver to be done
+T=851000 data=0x8d crc=0xffffffff
+T=851000 data=0x8d crc=0xffffffff
+crc = ffffffff
+T=870000 data=0x83 crc=0x0
+T=870000 [Driver] waiting for item ...
+T=870000 [Generator] Loop:45/50 create next item
+T=870000 [Generator] Wait for driver to be done
+T=871000 data=0x83 crc=0x16c9d989
+T=871000 data=0x83 crc=0x16c9d989
+crc = 16c9d989
+T=890000 data=0xe9 crc=0x0
+T=890000 [Driver] waiting for item ...
+T=890000 [Generator] Loop:46/50 create next item
+T=890000 [Generator] Wait for driver to be done
+T=891000 data=0xe9 crc=0xffffffff
+T=891000 data=0xe9 crc=0xffffffff
+crc = ffffffff
+T=910000 data=0x7e crc=0x0
+T=910000 [Driver] waiting for item ...
+T=910000 [Generator] Loop:47/50 create next item
+T=910000 [Generator] Wait for driver to be done
+T=911000 data=0x7e crc=0xa96869c2
+T=911000 data=0x7e crc=0xa96869c2
+crc = a96869c2
+T=930000 data=0xa3 crc=0x0
+T=930000 [Driver] waiting for item ...
+T=930000 [Generator] Loop:48/50 create next item
+T=930000 [Generator] Wait for driver to be done
+T=931000 data=0xa3 crc=0x67b5d9ec
+T=931000 data=0xa3 crc=0x67b5d9ec
+crc = 67b5d9ec
+T=950000 data=0x11 crc=0x0
+T=950000 [Driver] waiting for item ...
+T=950000 [Generator] Loop:49/50 create next item
+T=950000 [Generator] Wait for driver to be done
+T=951000 data=0x11 crc=0xfb570a45
+T=951000 data=0x11 crc=0xfb570a45
+crc = fb570a45
+T=970000 data=0xc8 crc=0x0
+T=970000 [Driver] waiting for item ...
+T=970000 [Generator] Loop:50/50 create next item
+T=970000 [Generator] Wait for driver to be done
+T=971000 data=0xc8 crc=0xbd29b5af
+T=971000 data=0xc8 crc=0xbd29b5af
+crc = bd29b5af
+T=990000 data=0x2d crc=0x0
+T=990000 [Driver] waiting for item ...
+T=991000 data=0x2d crc=0xdec4d98c
+T=991000 data=0x2d crc=0xdec4d98c
+crc = dec4d98c
+T=1011000 data=0x2d crc=0x402257d0
+T=1011000 data=0x2d crc=0x402257d0
+crc = 402257d0
+T=1031000 data=0x2d crc=0xbf3f9044
+T=1031000 data=0x2d crc=0xbf3f9044
+crc = bf3f9044
+$finish called at time : 1040 ns : File "/home/elias/Documents/2_Semester/DHDV/Projekt/DHDV_Project/code/crc/src/tb.sv" Line 30
+exit
+INFO: [Common 17-206] Exiting xsim at Thu Mar 26 09:46:33 2026...

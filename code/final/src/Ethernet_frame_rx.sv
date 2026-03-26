@@ -22,7 +22,7 @@ typedef enum {
         output logic CRC32_error,           //final CRC32 not equal to 0, transmission/reception failed
         output logic CRC32_correct,         //final CRC32 is equal to 0, successful
         output logic [31:0] CRC32_crc,      //32 Bit CRC
-        output logic Check_done,            //CRC32 check completed 
+        output logic Check_done,            //CRC32 check completed, ready for new frame 
 
         output logic [47:0] MAC_dest_addr,      //6 Bytes MAC Destination
         output logic [47:0] MAC_source_addr,    //6 Bytes MAC Source
@@ -118,8 +118,7 @@ typedef enum {
         end else begin
             //counter PREAMBLE
             if (state == PREAMBLE) begin
-                // if (rx_data == 8'hAA) begin 
-                if (rx_data == 8'h55) begin      
+                if (rx_data == 8'h55) begin         //Preamble is alternating pattern of 0 and 1  
                     cnt_preamble++;
                 end
             end
@@ -192,7 +191,6 @@ typedef enum {
             end
 
             SFD: begin
-                // next_state = (rx_data == 8'hD5) ? MAC_DEST : SFD;
                 next_state = (rx_data == 8'hAB) ? MAC_DEST : SFD;       // MAC if 10101011 is detected
             end
 
