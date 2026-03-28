@@ -28,6 +28,7 @@ initial
     start = 1'b0;            
   end
 
+//clock generaton
 task automatic clk_gen;
   forever
     begin
@@ -36,6 +37,7 @@ task automatic clk_gen;
     end
 endtask
 
+//reset
 task automatic apply_reset;
   @( posedge clk );
   reset = 1'b1;
@@ -43,6 +45,7 @@ task automatic apply_reset;
   reset = 1'b0;
 endtask
 
+//Device under test
 Top_Layer dut (
     .clk(clk),
     .reset(reset),

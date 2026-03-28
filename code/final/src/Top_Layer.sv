@@ -30,7 +30,7 @@ module Top_Layer (
     logic [7:0] rx_data_rx;      
     logic rx_valid_rx;
 
-
+    //Instantiation Ethernet frame transmit
     Ethernet_frame_gen Transmit(
         .clk(clk),
         .reset(reset),
@@ -46,6 +46,7 @@ module Top_Layer (
         .frame_done(frame_done_tx)
     );
 
+    //Instantiation Ethernet frame receive
     Ethernet_frame_rx Receive(
         .clk(clk),
         .reset(reset),
